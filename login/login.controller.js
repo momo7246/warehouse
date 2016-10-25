@@ -12,7 +12,6 @@
         vm.login = login;
 
         (function initController() {
-            // reset login status
             AuthenticationService.ClearCredentials();
         })();
 
@@ -20,8 +19,8 @@
             vm.dataLoading = true;
             AuthenticationService.Login(vm.username, vm.password, function (response) {
                 if (response.success) {
-                    AuthenticationService.SetCredentials(vm.username, vm.password);
-                    $location.path('/');
+                    AuthenticationService.SetCredentials(vm.username, vm.password, response.role);
+                    $location.path('/');  
                 } else {
                     FlashService.Error(response.message);
                     vm.dataLoading = false;

@@ -19,35 +19,36 @@
 
             /* Dummy authentication for testing, uses $timeout to simulate api call
              ----------------------------------------------*/
-            $timeout(function () {
-                var response;
-                UserService.GetByUsername(username)
-                    .then(function (user) {
-                        if (user !== null && user.password === password) {
-                            response = { success: true };
-                        } else {
-                            response = { success: false, message: 'Username or password is incorrect' };
-                        }
-                        callback(response);
-                    });
-            }, 1000);
+            // $timeout(function () {
+            //     var response;
+            //     UserService.GetByUsername(username)
+            //         .then(function (user) {
+            //             if (user !== null && user.password === password) {
+            //                 response = { success: true };
+            //             } else {
+            //                 response = { success: false, message: 'Username or password is incorrect' };
+            //             }
+            //             callback(response);
+            //         });
+            // }, 1000);
 
             /* Use this for real authentication
              ----------------------------------------------*/
-            //$http.post('/api/authenticate', { username: username, password: password })
-            //    .success(function (response) {
-            //        callback(response);
-            //    });
+            $http.post('src/login.php', { username: username, password: password })
+               .success(function (response) {
+                   callback(response);
+               });
 
         }
 
-        function SetCredentials(username, password) {
+        function SetCredentials(username, password, role) {
             var authdata = Base64.encode(username + ':' + password);
 
             $rootScope.globals = {
                 currentUser: {
                     username: username,
-                    authdata: authdata
+                    authdata: authdata,
+                    role: role
                 }
             };
 

@@ -9,14 +9,13 @@
     function UserService($http) {
         var service = {};
 
-        service.GetAll = GetAll;
-        service.GetById = GetById;
-        service.GetByUsername = GetByUsername;
-        service.Create = Create;
-        service.Update = Update;
-        service.Delete = Delete;
+        service.Login = Login;
 
         return service;
+
+        function Login() {
+            return $http.get('src/login.php').then(handleSuccess, handleError('Cannot Login, wrong username or password'));
+        }
 
         function GetAll() {
             return $http.get('/api/users').then(handleSuccess, handleError('Error getting all users'));
