@@ -1,64 +1,25 @@
-<?php
+<?php 
 
-$product1 = array(
-    [
-        'id' => 1,
-        'name' => 'product1',
-        'description' => 'description1',
-        'price' => 2222,
-        'owner' => 1
-    ],
-    [
-        'id' => 2,
-        'name' => 'product2',
-        'description' => 'description2',
-        'price' => 333,
-        'owner' => 2
-    ],
-    [
-        'id' => 3,
-        'name' => 'product3',
-        'description' => 'description3',
-        'price' => 4444,
-        'owner' => 1
-    ],
-    [
-        'id' => 4,
-        'name' => 'product4',
-        'description' => 'description4',
-        'price' => 2222,
-        'owner' => 2
-    ],
-    [
-        'id' => 5,
-        'name' => 'product5',
-        'description' => 'description5',
-        'price' => 2222,
-        'owner' => 1
-    ],
-    [
-        'id' => 6,
-        'name' => 'product6',
-        'description' => 'description6',
-        'price' => 2222,
-        'owner' => 2
-    ],
-    [
-        'id' => 7,
-        'name' => 'product7',
-        'description' => 'description7',
-        'price' => 4444,
-        'owner' => 2
-    ]
-);
-//$product2 = array(
-//    'id' => 2,
-//    'name' => 'product2',
-//    'description' => 'description2',
-//    'price' => 3333,
-//    'owner' => 2
-//);
+include('../domain/Product.php');
 
-//$records = array_merge($product1, $product2);
+$data = json_decode(file_get_contents("php://input")); 
+$result = array();
+if (!empty($data->user_id)) {
+    $product = new Product(null, $data->user_id);
+    $result = $product->getAllByUser();
+} else if (!empty($data->id)) {
+    $product = new Product($data->id);
+    $product->getOneById();
+    $result = array(
+        'id' => $product->id,
+        'name' => $product->name,
+        'description' => $product->description,
+        'price' => $product->price
+    );
+} else {
+    $product = new Product();
+    $result = $product->getAll();
+}
 
-echo '{"records":'.json_encode($product1).'}';
+echo '{"records":'.json_encode($result).'}';
+?>

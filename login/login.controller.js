@@ -5,10 +5,10 @@
         .module('app')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$location', 'AuthenticationService', 'FlashService'];
-    function LoginController($location, AuthenticationService, FlashService) {
+    LoginController.$inject = ['$location', 'AuthenticationService'];
+    function LoginController($location, AuthenticationService) {
         var vm = this;
-
+        vm.error = false;
         vm.login = login;
 
         (function initController() {
@@ -16,14 +16,12 @@
         })();
 
         function login() {
-            vm.dataLoading = true;
             AuthenticationService.Login(vm.username, vm.password, function (response) {
                 if (response.success) {
-                    AuthenticationService.SetCredentials(vm.username, vm.password, response.role);
+                    AuthenticationService.SetCredentials(response.id, vm.username, vm.password, response.role);
                     $location.path('/');  
                 } else {
-                    FlashService.Error(response.message);
-                    vm.dataLoading = false;
+                    vm.error = response.success;
                 }
             });
         };

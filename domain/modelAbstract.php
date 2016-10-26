@@ -1,18 +1,16 @@
 <?php
+include ('../config/database.php');
 
 abstract class ModelAbstract
 {
 	public $conn;
 	public $stmt;
 
-	public function __construct($db) {
-		$this->conn = $db;
-	}
-
 	public function connect($query) {
-		$this->stmt = $this->conn->prepare($query);
-		$this->bindParams();
-		$this->stmt->execute();
+            $database = new Database(); 
+            $this->conn = $database->getConnection();
+            $this->stmt = $this->conn->prepare($query);
+            $this->bindParams();
 	}
 
 	abstract public function bindParams();
