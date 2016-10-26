@@ -86,9 +86,13 @@
                     </div>
                 </div>
             </div>
+            <div class="fixed-action-btn" style="top:0; right:0; position:fixed;">
+                <a class="waves-effect waves-light btn red" ng-click="vm.logout()"><i class="material-icons left">input</i>Log out!</a>
+            </div>
             <div class="fixed-action-btn" style="bottom:45px; right:24px;" ng-show="!vm.isAdmin">
                 <a class="waves-effect waves-light btn modal-trigger btn-floating btn-large red" href="#modal-product-form" ng-click="vm.showCreateForm()"><i class="large material-icons">add</i></a>
             </div>
+            
         </div>
     </div>
 </div>

@@ -5,8 +5,8 @@
         .module('app')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['ProductService', '$rootScope'];
-    function HomeController(ProductService, $rootScope) {
+    HomeController.$inject = ['ProductService', '$rootScope', 'AuthenticationService', '$location'];
+    function HomeController(ProductService, $rootScope, AuthenticationService, $location) {
         var vm = this,
             user_id = $rootScope.globals.currentUser.id;
         
@@ -88,13 +88,10 @@
                 $('#modal-product-form').openModal();
             });
        }
-//       
-//        function loadCurrentUser() {
-//            UserService.GetByUsername($rootScope.globals.currentUser.username)
-//                .then(function (user) {
-//                    vm.user = user;
-//                });
-//        }
+       vm.logout = function() {
+           AuthenticationService.ClearCredentials();
+           $location.path('/');
+       }
     }
 
 })();

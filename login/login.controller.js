@@ -8,7 +8,6 @@
     LoginController.$inject = ['$location', 'AuthenticationService'];
     function LoginController($location, AuthenticationService) {
         var vm = this;
-        vm.error = false;
         vm.login = login;
 
         (function initController() {
@@ -21,7 +20,7 @@
                     AuthenticationService.SetCredentials(response.id, vm.username, vm.password, response.role);
                     $location.path('/');  
                 } else {
-                    vm.error = response.success;
+                    Materialize.toast(response.message, 5000);
                 }
             });
         };
