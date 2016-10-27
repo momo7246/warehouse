@@ -1,98 +1,101 @@
 <style type='text/css'>
   .sortorder:after {
-    content: '\25b2';   // BLACK UP-POINTING TRIANGLE
+	content: '\25b2';   // BLACK UP-POINTING TRIANGLE
   }
   .sortorder.reverse:after {
-    content: '\25bc';   // BLACK DOWN-POINTING TRIANGLE
+	content: '\25bc';   // BLACK DOWN-POINTING TRIANGLE
   }
 </style>
 <script src="libs/js/dirPagination.js"></script>
 <script>
-    $(document).ready(function(){
-        $('.modal-trigger').leanModal();
-    });
+	$(document).ready(function(){
+		$('.modal-trigger').leanModal();
+	});
 </script>
 
 
 <div class="container" ng-controller="HomeController">
-    <div class="row">
-        <div class="col s12">
-            <h4>Products</h4>
-            <!-- used for searching the current list -->
-            <input type="text" ng-model="search" class="form-control" placeholder="Search product..." />
-            <table class="hoverable bordered">
-                <thead>
-                    <tr>
-                        <th class="text-align-center">
-                            <button ng-click="vm.sortBy('id')">ID</button>
-                            <span class="sortorder" ng-show="vm.sortKey === 'id'" ng-class="{reverse: vm.reverse}"></span>
-                        </th>
-                        <th class="width-30-pct">
-                            <button ng-click="vm.sortBy('name')">Name</button>
-                            <span class="sortorder" ng-show="vm.sortKey === 'name'" ng-class="{reverse: vm.reverse}"></span>
-                        </th>
-                        <th class="width-30-pct">
-                            <button ng-click="vm.sortBy('description')">Description</button>
-                            <span class="sortorder" ng-show="vm.sortKey === 'description'" ng-class="{reverse: vm.reverse}"></span>
-                        </th>
-                        <th class="text-align-center">
-                            <button ng-click="vm.sortBy('price')">Price</button>
-                            <span class="sortorder" ng-show="vm.sortKey === 'price'" ng-class="{reverse: vm.reverse}"></span>
-                        </th>
-                        <th class="text-align-center" ng-show="!vm.isAdmin">Action</th>
-                    </tr>
-                </thead>
+	<div class="row">
+		<div class="col s12">
+			<h4>Products</h4>
+			<!-- used for searching the current list -->
+			<input type="text" ng-model="search" class="form-control" placeholder="Search product..." />
+			<table class="hoverable bordered">
+				<thead>
+					<tr>
+						<th class="text-align-center">
+							<button ng-click="vm.sortBy('id')">ID</button>
+							<span class="sortorder" ng-show="vm.sortKey === 'id'" ng-class="{reverse: vm.reverse}"></span>
+						</th>
+						<th class="width-30-pct">
+							<button ng-click="vm.sortBy('name')">Name</button>
+							<span class="sortorder" ng-show="vm.sortKey === 'name'" ng-class="{reverse: vm.reverse}"></span>
+						</th>
+						<th class="width-30-pct">
+							<button ng-click="vm.sortBy('description')">Description</button>
+							<span class="sortorder" ng-show="vm.sortKey === 'description'" ng-class="{reverse: vm.reverse}"></span>
+						</th>
+						<th class="text-align-center">
+							<button ng-click="vm.sortBy('price')">Price</button>
+							<span class="sortorder" ng-show="vm.sortKey === 'price'" ng-class="{reverse: vm.reverse}"></span>
+						</th>
+						<th class="text-align-center" ng-show="!vm.isAdmin">Action</th>
+					</tr>
+				</thead>
 
-                <tbody ng-init="vm.getAll()">
-                    <tr dir-paginate="p in vm.products | filter:search | orderBy:vm.sortKey:vm.reverse | itemsPerPage:5" pagination-id="prodx">
-                        <td class="text-align-center">{{ p.id }}</td>
-                        <td>{{ p.name }}</td>
-                        <td>{{ p.description }}</td>
-                        <td class="text-align-center">{{ p.price }}</td>
-                        <td ng-show="!vm.isAdmin">
-                            <a ng-click="vm.readOne(p.id)" class="waves-effect waves-light btn margin-bottom-1em"><i class="material-icons left">edit</i>Edit</a>
-                            <a ng-click="vm.deleteProduct(p.id)" class="waves-effect waves-light btn margin-bottom-1em"><i class="material-icons left">delete</i>Delete</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <dir-pagination-controls pagination-id="prodx" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="dirPagination.tpl.html"></dir-pagination-controls>
-            <div id="modal-product-form" class="modal" ng-show="!vm.isAdmin">
-                <div class="modal-content">
-                <h4 id="modal-product-title">Create New Product</h4>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input ng-model="vm.name" type="text" class="validate" id="form-name" />
-                            <label for="name">Name</label>
-                        </div>
+				<tbody ng-init="vm.getAll()">
+					<tr dir-paginate="p in vm.products | filter:search | orderBy:vm.sortKey:vm.reverse | itemsPerPage:5" pagination-id="prodx">
+						<td class="text-align-center">{{ p.id }}</td>
+						<td>{{ p.name }}</td>
+						<td>{{ p.description }}</td>
+						<td class="text-align-center">{{ p.price }}</td>
+						<td ng-show="!vm.isAdmin">
+							<a ng-click="vm.readOne(p.id)" class="waves-effect waves-light btn margin-bottom-1em"><i class="material-icons left">edit</i>Edit</a>
+							<a ng-click="vm.deleteProduct(p.id)" class="waves-effect waves-light btn margin-bottom-1em" ng-class="{disabled:vm.enableDelete}"><i class="material-icons left">delete</i>Delete</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<dir-pagination-controls pagination-id="prodx" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="dirPagination.tpl.html"></dir-pagination-controls>
+			<div id="modal-product-form" class="modal" ng-show="!vm.isAdmin">
+				<div class="modal-content">
+				<h4 id="modal-product-title">Create New Product</h4>
+					<div class="row">
+						<div class="input-field col s12">
+							<input ng-model="vm.name" type="text" class="validate" id="form-name" />
+							<label for="name">Name</label>
+						</div>
 
-                        <div class="input-field col s12">
-                            <textarea ng-model="vm.description" type="text" class="validate materialize-textarea" ></textarea>
-                            <label for="description">Description</label>
-                        </div>
+						<div class="input-field col s12">
+							<textarea ng-model="vm.description" type="text" class="validate materialize-textarea" ></textarea>
+							<label for="description">Description</label>
+						</div>
 
-                        <div class="input-field col s12">
-                            <input ng-model="vm.price" type="text" class="validate" id="form-price" />
-                            <label for="price">Price</label>
-                        </div>
+						<div class="input-field col s12">
+							<input ng-model="vm.price" type="text" class="validate" id="form-price" />
+							<label for="price">Price</label>
+						</div>
 
-                        <div class="input-field col s12">
-                            <a id="btn-create-product" class="waves-effect waves-light btn margin-bottom-1em" ng-click="vm.createProduct()"><i class="material-icons left">add</i>Create</a>
+						<div class="input-field col s12">
+							<a id="btn-create-product" class="waves-effect waves-light btn margin-bottom-1em" ng-click="vm.createProduct()"><i class="material-icons left" ng-class="{disabled:vm.enableProgress}">add</i>Create</a>
 
-                            <a id="btn-update-product" class="waves-effect waves-light btn margin-bottom-1em" ng-click="vm.updateProduct()"><i class="material-icons left">edit</i>Save Changes</a>
+							<a id="btn-update-product" class="waves-effect waves-light btn margin-bottom-1em" ng-click="vm.updateProduct()"><i class="material-icons left" ng-class="{disabled:vm.enableProgress}">edit</i>Save Changes</a>
 
-                            <a class="modal-action modal-close waves-effect waves-light btn margin-bottom-1em"><i class="material-icons left">close</i>Close</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="fixed-action-btn" style="top:0; right:0; position:fixed;">
-                <a class="waves-effect waves-light btn red" ng-click="vm.logout()"><i class="material-icons left">input</i>Log out!</a>
-            </div>
-            <div class="fixed-action-btn" style="bottom:45px; right:24px;" ng-show="!vm.isAdmin">
-                <a class="waves-effect waves-light btn modal-trigger btn-floating btn-large red" href="#modal-product-form" ng-click="vm.showCreateForm()"><i class="large material-icons">add</i></a>
-            </div>
-            
-        </div>
-    </div>
+							<a class="modal-action modal-close waves-effect waves-light btn margin-bottom-1em"><i class="material-icons left">close</i>Close</a>
+						</div>
+					</div>
+					<div class="progress" ng-show="vm.enableProgress">
+					  	<div class="indeterminate"></div>
+				  	</div>
+				</div>
+			</div>
+			<div class="fixed-action-btn" style="top:0; right:0; position:fixed;">
+				<a class="waves-effect waves-light btn red" ng-click="vm.logout()"><i class="material-icons left">input</i>Log out!</a>
+			</div>
+			<div class="fixed-action-btn" style="bottom:45px; right:24px;" ng-show="!vm.isAdmin">
+				<a class="waves-effect waves-light btn modal-trigger btn-floating btn-large red" href="#modal-product-form" ng-click="vm.showCreateForm()"><i class="large material-icons">add</i></a>
+			</div>
+			
+		</div>
+	</div>
 </div>

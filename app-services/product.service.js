@@ -9,7 +9,7 @@
     function ProductService($http) {
         var service = {};
 
-        service.getOneById = getOneById;
+        service.getProductById = getProductById;
         service.getProductByUser = getProductByUser;
         service.getAllProduct = getAllProduct;
         service.createProduct = createProduct;
@@ -20,43 +20,41 @@
 
         function getAllProduct() {
            return $http.get('src/readProducts.php')
-                   .then(function(res){
-                       return res.data.records;
-                    }, handleError('cannot get list of products'));
+                   .then(handleSuccess, handleError('cannot get list of products'));
         }
         
         function getProductByUser(id) {
-            return $http.post('src/readProducts.php', {user_id : id})
-                   .then(function(res){
-                       return res.data.records;
-                    }, handleError('cannot get list of products for this user'));
+            return $http.get('src/readProducts.php', {params: {user_id : id}})
+                   .then(handleSuccess, handleError('cannot get list of products for this user'));
         }
         
-        function getOneById(data) {
-            return $http.post('src/readProducts.php', data)
-                   .then(function(res){
-                       return res.data.records;
-                    }, handleError('cannot get product'));
+        function getProductById(id) {
+            return $http.get('src/readProducts.php', {params: {id : id}})
+                   .then(handleSuccess, handleError('cannot get product'));
         }
         
         function createProduct(data) {
             return $http.post('src/manageProducts.php', data)
-                    .then();
+                    .then(handleSuccess, handleError('cannot create product'));
         }
         
         function deleteProduct(data) {
             return $http.post('src/manageProducts.php', data)
-                    .then();
+                    .then(handleSuccess, handleError('cannot delete product'));
         }
         
         function updateProduct(data) {
-            return $http.post('src/manageProducts.php',data)
-                    .then();
+            return $http.post('src/manageProducts.php', data)
+                    .then(handleSuccess, handleError('cannot update product'));
+        }
+
+        function handleSuccess(res) {
+            return res.data;
         }
 
         function handleError(error) {
             return function () {
-                return { success: false, message: error };
+                return { status: false, message: error };
             };
         }
     }

@@ -5,8 +5,8 @@
         .module('app')
         .factory('AuthenticationService', AuthenticationService);
 
-    AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout', 'UserService'];
-    function AuthenticationService($http, $cookieStore, $rootScope, $timeout, UserService) {
+    AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout'];
+    function AuthenticationService($http, $cookieStore, $rootScope, $timeout) {
         var service = {};
 
         service.Login = Login;
@@ -15,10 +15,10 @@
 
         return service;
 
-        function Login(username, password, callback) {
-            $http.post('src/login.php', { username: username, password: password })
-               .success(function (response) {
-                   callback(response);
+        function Login(username, password) {
+            return $http.post('src/login.php', { username: username, password: password })
+               .then(function (response) {
+                   return response.data;
                });
         }
 

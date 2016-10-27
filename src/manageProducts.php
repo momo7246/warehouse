@@ -22,6 +22,7 @@ class ManageProducts {
     
     private $data;
     private $product;
+    private $msg = 'OK';
     
     public function __construct($data) {
         $this->data = $data;
@@ -34,12 +35,14 @@ class ManageProducts {
                     $this->data->description,
                     $this->data->price
                 );
-        $this->product->createProduct();
+        $status = $this->product->createProduct();
+        $this->manageResponse($status, 'Cannot create product');
     }
     
     public function deleteProduct() {
         $this->product = new Product($this->data->id);
-        $this->product->deleteProduct();
+        $status = $this->product->deleteProduct();
+        $this->manageResponse($status, 'Cannot delete product');
     }
     
     public function updateProduct() {
@@ -50,6 +53,18 @@ class ManageProducts {
             $this->data->description,
             $this->data->price
         );
-        $this->product->updateProduct();
+        $status = $this->product->updateProduct();
+        $this->manageResponse($status, 'Cannot update product');
+    }
+
+    private function manageResponse($status, $errMsg) {
+        if (!$status) {
+            $this->msg = $errMsg;
+        }
+        $response = array(
+            "status" => $status,
+            "message" => $this->msg
+        );
+        echo json_encode($response);
     }
 }
