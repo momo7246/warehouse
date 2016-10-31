@@ -5,14 +5,22 @@
 				.module('app')
 				.controller('HomeController', HomeController);
 
-		HomeController.$inject = ['ProductService', '$rootScope', 'AuthenticationService', '$location'];
-		function HomeController(ProductService, $rootScope, AuthenticationService, $location) {
+		HomeController.$inject = ['ProductService', 'AuthenticationService', '$location', 'HomeToggleService', '$cookies'];
+		function HomeController(ProductService, AuthenticationService, $location, HomeToggleService, $cookies) {
+		    console.log('user');
 				var vm = this,
-						user_id = $rootScope.globals.currentUser.id;
-				
-				vm.isAdmin = ($rootScope.globals.currentUser.role == '1') ? true : false;
+				    user_id = $cookies.getObject('globals').currentUser.id;
+
+				vm.toggleMaster = HomeToggleService.toggleMaster();
 				vm.sortKey = 'id';
 				vm.reverse = true;
+				
+				toggleInit();
+			
+				function toggleInit() {
+				    var ele = $("#toggle-view span");
+				    ele.text("View Master");
+				};
 				
 				vm.sortBy = function(sortKey) {
 					vm.reverse = (vm.sortKey === sortKey) ? !vm.reverse : false;
@@ -78,14 +86,13 @@
 					 });
 			 }
 			 vm.getAll = function() {
-					 var service = (vm.isAdmin) ? ProductService.getAllProduct() : ProductService.getProductByUser(user_id);
-					 service.then(function(products) {
-							angular.forEach(products, function(p) {
-									p.id = parseInt(p.id);
-									p.price = parseFloat(p.price);
-							});
-							vm.products = products; 
-					 });
+			     ProductService.getProductByUser(user_id).then(function(products) {
+				 angular.forEach(products, function(p) {
+				    p.id = parseInt(p.id);
+				    p.price = parseFloat(p.price);
+				});
+				vm.products = products;
+			     })
 			 }
 			 vm.readOne = function(id) {
 						$('#modal-product-title').text("Edit Product");
@@ -113,6 +120,11 @@
 					 		Materialize.toast(errMsg, 5000);
 					 }
 			 }
+			 
+			 vm.toggleView = function() {
+			     $location.path('/master');
+			     HomeToggleService.enableMasterHome();
+			}
 		}
 
 })();
