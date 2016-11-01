@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-		.module('app', ['ngRoute', 'ngCookies', 'angularUtils.directives.dirPagination', 'angularjs-crypto'])
+		.module('app', ['ngRoute', 'ngCookies', 'angularUtils.directives.dirPagination', 'angularjs-crypto', 'angularUtils.directives.comparePassword'])
 		.config(config)
 		.run(run);
 
