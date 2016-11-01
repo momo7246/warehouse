@@ -22,7 +22,7 @@
 									<label for='password'>Enter your password</label>
 								</div>
                                                             <label style='float: right;'>
-                                                                    <a class='pink-text' href ng-click="vm.resetPassword()"><b>Forgot Password?</b></a>
+                                                                    <a class='pink-text' href="#resetPassword"><b>Forgot Password?</b></a>
                                                             </label>
 							</div>
 							<br />
@@ -47,3 +47,21 @@
 				</div>
 		</center>
 </main>
+<div id="resetPassword" class="modal">
+				<div class="modal-content">
+				<h4 id="modal-product-title">Forgot Your Password!</h4>
+					<div class="row">
+						<div class="input-field col s12">
+							<input ng-model="vm.email" type="text" class="validate" id="form-email" />
+							<label for="name">Email</label>
+						</div>
+
+						<div class="input-field col s12">
+							<a id="btn-reset-password" class="waves-effect waves-light btn margin-bottom-1em" ng-click="vm.resetPassword()">Reset</a>
+
+							<a class="modal-action modal-close waves-effect waves-light btn margin-bottom-1em"><i class="material-icons left">close</i>Close</a>
+						</div>
+					</div>
+				</div>
+			</div>
+

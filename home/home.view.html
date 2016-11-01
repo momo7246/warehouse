@@ -5,11 +5,22 @@
   .sortorder.reverse:after {
 	content: '\25bc';   // BLACK DOWN-POINTING TRIANGLE
   }
+  ul.dropdown-content {
+        top: 17% !important;
+        height: 17% !important;
+  }
+  .dropdown-content li {
+        margin: 0 !important;
+  }
+  .dropdown-content li>a {
+        font-size: 14px;
+  }
 </style>
 <script src="libs/js/dirPagination.js"></script>
 <script>
 	$(document).ready(function(){
 		$('.modal-trigger').leanModal();
+                $('.dropdown-button').dropdown();
 	});
 </script>
 
@@ -50,8 +61,9 @@
 						<td>{{ p.description }}</td>
 						<td class="text-align-center">{{ p.price }}</td>
 						<td ng-show="!vm.toggleMaster">
-							<a ng-click="vm.readOne(p.id)" class="waves-effect waves-light btn margin-bottom-1em"><i class="material-icons left">edit</i>Edit</a>
-							<a ng-click="vm.deleteProduct(p.id)" class="waves-effect waves-light btn margin-bottom-1em" ng-class="{disabled:vm.enableDelete}"><i class="material-icons left">delete</i>Delete</a>
+							<a ng-click="vm.readOne(p.id)" class="waves-effect waves-light btn margin-bottom-1em"><i class="material-icons">edit</i></a>
+							<a ng-click="vm.deleteProduct(p.id)" class="waves-effect waves-light btn margin-bottom-1em" ng-class="{disabled:vm.enableDelete}"><i class="material-icons">delete</i></a>
+                                                        <a ng-click="vm.readOne(p.id)" class="waves-effect waves-light btn margin-bottom-1em"><i class="material-icons">info</i></a>
 						</td>
 					</tr>
 				</tbody>
@@ -62,17 +74,17 @@
 				<h4 id="modal-product-title">Create New Product</h4>
 					<div class="row">
 						<div class="input-field col s12">
-							<input ng-model="vm.name" type="text" class="validate" id="form-name" />
+							<input ng-model="vm.name" type="text" class="validate" id="form-name" required/>
 							<label for="name">Name</label>
 						</div>
 
 						<div class="input-field col s12">
-							<textarea ng-model="vm.description" type="text" class="validate materialize-textarea" ></textarea>
+							<textarea ng-model="vm.description" type="text" class="validate materialize-textarea" required></textarea>
 							<label for="description">Description</label>
 						</div>
 
 						<div class="input-field col s12">
-							<input ng-model="vm.price" type="text" class="validate" id="form-price" />
+							<input ng-model="vm.price" type="text" class="validate" id="form-price" required/>
 							<label for="price">Price</label>
 						</div>
 
@@ -95,9 +107,16 @@
                             </a>
                             <ul>
                                 <li><a class="waves-effect waves-light btn" ng-click="vm.toggleView()" id="toggle-view"><i class="material-icons left">star</i><span>View</span></a></li>
-                              <li><a class="waves-effect waves-light btn red" ng-click="vm.logout()"><i class="material-icons left">input</i>Log out!</a></li>
+                              <li>
+                                  <a class="waves-effect waves-light btn dropdown-button" data-activates="account-dropdown"><i class="material-icons left">perm_identity</i>Account<i class="material-icons right">arrow_drop_down</i></a>
+                                    <ul id="account-dropdown" class="dropdown-content">
+                                        <li><a ng-click="vm.changePassword()">Change Password</a></li>
+                                      <li><a ng-click="vm.logout()">Logout!</a></li>
+                                    </ul>
+                              </li>
                             </ul>
                         </div>
+                        
 			<div class="fixed-action-btn" style="bottom:45px; right:24px;" ng-show="!vm.toggleMaster">
 				<a class="waves-effect waves-light btn modal-trigger btn-floating btn-large red" href="#modal-product-form" ng-click="vm.showCreateForm()"><i class="large material-icons">add</i></a>
 			</div>
@@ -105,3 +124,4 @@
 		</div>
 	</div>
 </div>
+                            

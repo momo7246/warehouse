@@ -5,8 +5,15 @@
 				.module('app')
 				.controller('HomeController', HomeController);
 
-		HomeController.$inject = ['ProductService', 'AuthenticationService', '$location', 'HomeToggleService', '$cookies'];
-		function HomeController(ProductService, AuthenticationService, $location, HomeToggleService, $cookies) {
+		HomeController.$inject = [
+		    'ProductService',
+		    'AuthenticationService',
+		    '$location',
+		    'HomeToggleService',
+		    '$cookies',
+		    'ManagePasswordService'
+		];
+		function HomeController(ProductService, AuthenticationService, $location, HomeToggleService, $cookies, ManagePasswordService) {
 		    console.log('user');
 				var vm = this,
 				    user_id = $cookies.getObject('globals').currentUser.id;
@@ -106,6 +113,10 @@
 								$('#modal-product-form').openModal();
 						});
 			 }
+			 vm.changePassword = function() {
+			     ManagePasswordService.generateLink();
+			 }
+			 
 			 vm.logout = function() {
 					 AuthenticationService.ClearCredentials();
 					 $location.path('/login');
