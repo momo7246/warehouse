@@ -22,7 +22,7 @@
 									<label for='password'>Enter your password</label>
 								</div>
                                                             <label style='float: right;'>
-                                                                    <a class='pink-text' href="#resetPassword"><b>Forgot Password?</b></a>
+                                                                    <a class="pink-text link-pointer" ng-click="vm.requestPassword()"><b>Forgot Password?</b></a>
                                                             </label>
 							</div>
 							<br />
@@ -47,21 +47,24 @@
 				</div>
 		</center>
 </main>
-<div id="resetPassword" class="modal">
-				<div class="modal-content">
-				<h4 id="modal-product-title">Forgot Your Password!</h4>
-					<div class="row">
-						<div class="input-field col s12">
-							<input ng-model="vm.email" type="text" class="validate" id="form-email" />
-							<label for="name">Email</label>
-						</div>
-
-						<div class="input-field col s12">
-							<a id="btn-reset-password" class="waves-effect waves-light btn margin-bottom-1em" ng-click="vm.resetPassword()">Reset</a>
-
-							<a class="modal-action modal-close waves-effect waves-light btn margin-bottom-1em"><i class="material-icons left">close</i>Close</a>
-						</div>
-					</div>
-				</div>
-			</div>
+<div id="modal-request-password" class="modal">
+        <div class="modal-content">
+        <h4 id="modal-title">Forgot Your Password</h4>
+        <span>Please enter the e-mail address used to register. We will send information to that address.</span>
+            <form id="request-password-form" ng-submit="vm.resetPassword()">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">email</i>
+                        <input id="email" type="email" class="validate" ng-model="vm.email">
+                        <label for="email" class="">Email</label>
+                      </div>
+                </div>
+                <div class='row'>
+                    <button id="submit-request-password" type='submit' class='col s12 btn btn-large waves-effect indigo'>Submit</button>
+                </div>
+            </form>
+            <span class="request-success hide">Successfully sent information to your email.</span>
+            <span class="request-error hide">Your email is not registered. Please try on a different address.</span>
+        </div>
+</div>
 

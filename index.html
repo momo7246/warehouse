@@ -5,6 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="libs/css/materialize/css/materialize.min.css" />
+        <link rel="stylesheet" href="libs/css/custom.css" />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 </head>
 <body>
@@ -34,5 +35,11 @@
         <script src="home/master.controller.js"></script>
 	<script src="login/login.controller.js"></script>
         <script src="password/password.controller.js"></script>
+        <script>
+            $(document).ready(function(){
+                    $('.modal-trigger').leanModal();
+                    $('.dropdown-button').dropdown();
+            });
+        </script>
 </body>
 </html>

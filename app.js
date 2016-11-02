@@ -27,7 +27,7 @@
 				controllerAs: 'vm'
 			})
 			
-			.when('/resetPassword/:end',  {
+			.when('/resetPassword/:end/:id',  {
 				controller: 'PasswordController',
 				templateUrl: 'password/password.view.html',
 				controllerAs: 'vm'

@@ -5,21 +5,24 @@
 		.module('app')
 		.controller('LoginController', LoginController);
 
-	LoginController.$inject = ['AuthenticationService', 'HomeToggleService'];
-	function LoginController(AuthenticationService, HomeToggleService) {
+	LoginController.$inject = ['$location', 'AuthenticationService', 'HomeToggleService', 'EncryptionService', 'ManagePasswordService'];
+	function LoginController($location, AuthenticationService, HomeToggleService, EncryptionService, ManagePasswordService) {
 	    console.log('login');
 		var vm = this;
 		vm.login = login;
-
-		(function initController() {
+		
+		
+		initController();
+		function initController() {
 			AuthenticationService.ClearCredentials();
-		})();
+		}
 
 		function login() {
 			vm.enableSpinner = true;
-			AuthenticationService.Login(vm.username, vm.password).then(function (response) {
+			var pw = EncryptionService.Encrypt(vm.password);
+			AuthenticationService.Login(vm.username, pw).then(function (response) {
 				if (response.success) {
-					AuthenticationService.SetCredentials(response.id, vm.username, vm.password, response.role);
+					AuthenticationService.SetCredentials(response.id, vm.username, pw, response.role);
 					HomeToggleService.toggleHomeLocation();
 				} else {
 					Materialize.toast(response.message, 5000);
@@ -30,8 +33,30 @@
 			});
 		};
 		
+		vm.requestPassword = function() {
+		    $('#request-password-form input').val("");
+		    $('#submit-request-password').removeClass('disabled');
+		    $('.request-error').addClass('hide');
+		    $('.request-success').addClass('hide');
+		    $('#modal-request-password').openModal();
+		}
 		vm.resetPassword = function() {
-		    console.log('reset');
+		    var url = $location.$$absUrl.replace($location.path(), ""),
+			link = url +"/"+ ManagePasswordService.generateLink(),
+			data = {
+			    email: vm.email,
+			    link: link
+			};
+		    ManagePasswordService.requestForPassword(data).then(function(res) {
+			if (res.status) {
+			    $('.request-error').addClass('hide');
+			    $('.request-success').removeClass('hide');
+			    $('#submit-request-password').addClass('disabled');
+			} else {
+			    $('.request-error').removeClass('hide');
+			    $('.request-success').addClass('hide');
+			}
+		    });
 		}
 	}
 

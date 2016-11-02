@@ -114,7 +114,9 @@
 						});
 			 }
 			 vm.changePassword = function() {
-			     ManagePasswordService.generateLink();
+			     var link = ManagePasswordService.generateLink();
+			     
+			     $location.path(link+"/"+user_id);
 			 }
 			 
 			 vm.logout = function() {
