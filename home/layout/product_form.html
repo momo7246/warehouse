@@ -1,0 +1,83 @@
+<div class="product-form hide">
+<h5 id="product-form-title">Create New Product</h5>
+        <div class="row">
+                <div class="input-field col s6">
+                        <input ng-model="vm.ccn" type="text" class="validate" id="form-name" required/>
+                        <label for="name">CCN#</label>
+                </div>
+            
+                <div class="input-field col s6">
+                        <input ng-model="vm.partNg" type="text" class="validate" id="form-partNg" required/>
+                        <label for="price">Part Ng.</label>
+                </div>
+        </div>
+        <div class="row">
+                <div class="input-field col s6">
+                        <select class="browser-default" ng-model="vm.type_id" ng-options="item as item.description for item in vm.types track by item.id"></select>
+                        <label for="type">Type</label>
+                </div>
+            
+                <div class="input-field col s6">
+                        <select class="browser-default" ng-model="vm.location_id" ng-options="item as item.description for item in vm.locations track by item.id"></select>
+                        <label for="location">Location</label>
+                </div>
+        </div>
+        <div class="row">
+                <div class="input-field col s6">
+                        <input ng-model="vm.uslp" type="text" class="validate" id="form-uslp" required/>
+                        <label for="uslp">USLP</label>
+                </div>
+            
+                <div class="input-field col s6">
+                        <input ng-model="vm.ndbp" type="text" class="validate" id="form-ndbp" required/>
+                        <label for="ndbp">NDBP</label>
+                </div>
+        </div>
+        <div class="row">
+                <div class="input-field col s6">
+                        <input ng-model="vm.note" type="text" class="validate" id="form-note" required/>
+                        <label for="note">Note</label>
+                </div>
+                <div class="input-field col s6">
+                        <input ng-model="vm.year" type="text" class="validate" id="form-year" required/>
+                        <label for="price">Year</label>
+                </div>
+        </div>
+        <div class="row">
+                <div class="input-field col s12">
+                        <textarea ng-model="vm.description" type="text" class="validate materialize-textarea" required></textarea>
+                        <label for="description">Description</label>
+                </div>
+        </div>
+        <div class="row">
+                <div class="input-field col s12">
+                        <textarea ng-model="vm.details" type="text" class="validate materialize-textarea" id="form-detail" required></textarea>
+                        <label for="price">Detail</label>
+                </div>
+        </div>
+        <div class="row">
+                <div class="input-field col s12">
+                        <textarea ng-model="vm.noteDetails" type="text" class="validate materialize-textarea" id="form-noteDetails" required></textarea>
+                        <label for="noteDetails">Note Details</label>
+                </div>
+        </div>
+        <div class="row">
+                <div class="input-field col s12">
+                        <textarea ng-model="vm.other" type="text" class="validate materialize-textarea" id="form-other" required></textarea>
+                        <label for="other">Other</label>
+                </div>
+        </div>
+        
+        <div class="input-field row s12">
+                <a id="btn-create-product" class="waves-effect waves-light btn margin-bottom-1em" ng-click="vm.createProduct()"><i class="material-icons left" ng-class="{disabled:vm.enableProgress}">add</i>Create</a>
+
+                <a id="btn-update-product" class="waves-effect waves-light btn margin-bottom-1em" ng-click="vm.updateProduct(vm.productId)"><i class="material-icons left" ng-class="{disabled:vm.enableProgress}">edit</i>Save Changes</a>
+                
+                <a id="btn-delete-product" class="waves-effect waves-light btn margin-bottom-1em red" ng-click="vm.deleteProduct(vm.productId)"><i class="material-icons left" ng-class="{disabled:vm.enableProgress}">edit</i>Delete</a>
+
+                <a class="modal-action modal-close waves-effect waves-light btn margin-bottom-1em"><i class="material-icons left">close</i>Close</a>
+        </div>
+        <div class="progress" ng-show="vm.enableProgress">
+                <div class="indeterminate"></div>
+        </div>
+</div>

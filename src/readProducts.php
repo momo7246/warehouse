@@ -1,6 +1,7 @@
 <?php 
 
-include('../domain/Product.php');
+include('../domain/ProductDomain.php');
+include('../model/Product.php');
 
 $p = new ReadProducts($_GET);
 $res = $p->process();
@@ -9,9 +10,11 @@ echo json_encode($res);
 class ReadProducts
 {
 	private $data;
+	private $domain;
 
 	public function __construct($data) {
 		$this->data = $data;
+		$this->domain = new ProductDomain();
 	}
 
 	public function process() {
@@ -31,25 +34,24 @@ class ReadProducts
 	}
 
 	private function readAll() {
-		$product = new Product();
-		return $product->getAll();
+		return $this->domain->getAll();
 	}
 
 	private function readById() {
 		$id = $this->data['id'];
-		$product = new Product($id);
-		$product->getOneById();
-		return array(
-			'id' => $product->id,
-			'name' => $product->name,
-			'description' => $product->description,
-			'price' => $product->price
-		);
+		$product = $this->domain->getOneById($id);
+//		return array(
+//			'id' => $product->id,
+//			'name' => $product->name,
+//			'description' => $product->description,
+//			'price' => $product->price
+//		);
+		return $product;
 	}
 
 	private function readByUserId() {
 		$userId = $this->data['user_id'];
-		$product = new Product(null, $userId);
-		return $product->getAllByUser();
+//		$product = new Product(null, $userId);
+		return $this->domain->getAllByUser($userId);
 	}
 }

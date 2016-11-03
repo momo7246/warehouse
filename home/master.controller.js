@@ -12,10 +12,9 @@
 			vm.toggleMaster = HomeToggleService.toggleMaster();
 			vm.sortKey = 'id';
 			vm.reverse = true;
-			
-			toggleInit();
-			
-			function toggleInit() {
+			vm.templateMenu = 'home/layout/menu.html';
+
+			vm.toggleInit = function() {
 			    var ele = $("#toggle-view span");
 			    ele.text("View");
 			};

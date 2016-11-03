@@ -79,3 +79,14 @@ and open the template in the editor.
 .link-pointer {
     cursor: pointer;
 }
+
+.product-form {
+    padding: 20px;
+    background-color: #f5f2f0;
+    border: solid 1px rgba(51,51,51,0.12);
+}
+
+.product-form > select {
+    background-color: #f5f2f0;
+    border: solid 1px rgba(51,51,51,0.12);
+}

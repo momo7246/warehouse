@@ -15,6 +15,8 @@
         service.createProduct = createProduct;
         service.updateProduct = updateProduct;
         service.deleteProduct = deleteProduct;
+	service.getAllTypes = getAllTypes;
+	service.getAllLocations = getAllLocations;
 
         return service;
 
@@ -47,6 +49,16 @@
             return $http.post('src/manageProducts.php', data)
                     .then(handleSuccess, handleError('cannot update product'));
         }
+	
+	function getAllTypes() {
+	    return $http.get('src/readType.php')
+		    .then(handleSuccess, handleError('cannot find type'));
+	}
+	
+	function getAllLocations() {
+	    return $http.get('src/readLocation.php')
+		    .then(handleSuccess, handleError('cannot find location'));
+	}
 
         function handleSuccess(res) {
             return res.data;

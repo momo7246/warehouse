@@ -6,6 +6,7 @@
 				.controller('HomeController', HomeController);
 
 		HomeController.$inject = [
+		    '$scope',
 		    'ProductService',
 		    'AuthenticationService',
 		    '$location',
@@ -13,7 +14,7 @@
 		    '$cookies',
 		    'ManagePasswordService'
 		];
-		function HomeController(ProductService, AuthenticationService, $location, HomeToggleService, $cookies, ManagePasswordService) {
+		function HomeController($scope, ProductService, AuthenticationService, $location, HomeToggleService, $cookies, ManagePasswordService) {
 		    console.log('user');
 				var vm = this,
 				    user_id = $cookies.getObject('globals').currentUser.id;
@@ -21,13 +22,20 @@
 				vm.toggleMaster = HomeToggleService.toggleMaster();
 				vm.sortKey = 'id';
 				vm.reverse = true;
-				
-				toggleInit();
+				vm.templateMenu = 'home/layout/menu.html';
+				vm.templateForm = 'home/layout/product_form.html';
 			
-				function toggleInit() {
+				vm.toggleInit = function() {
 				    var ele = $("#toggle-view span");
 				    ele.text("View Master");
 				};
+				
+				getAllTypes();
+				getAllLocations();
+				
+				$scope.$watch('vm.productId', function(id) {
+				    vm.readOne(id);
+				});
 				
 				vm.sortBy = function(sortKey) {
 					vm.reverse = (vm.sortKey === sortKey) ? !vm.reverse : false;
@@ -35,10 +43,12 @@
 				};
 				
 				vm.showCreateForm = function() {
-					 vm.clearForm();
-					 $('#modal-product-title').text("Create New Product");
+					 vm.clearForm(); 
+					 $('#product-form-title').text("Create New Product");
 					 $('#btn-update-product').hide();
+					 $('#btn-delete-product').hide();
 					 $('#btn-create-product').show();
+					 $('.product-form').removeClass('hide');
 			 }
 			 vm.clearForm = function(){
 					 vm.id = "";
@@ -102,17 +112,28 @@
 			     })
 			 }
 			 vm.readOne = function(id) {
-						$('#modal-product-title').text("Edit Product");
-						$('#btn-update-product').show();
-						$('#btn-create-product').hide();
-						ProductService.getProductById(id).then(function(res) {
-								vm.id = res.id;
-								vm.name = res.name;
-								vm.description = res.description;
-								vm.price = res.price;
-								$('#modal-product-form').openModal();
-						});
+				vm.productId = id;
+				$('#product-form-title').text("Product Detail");
+				$('#btn-update-product').show();
+				$('#btn-delete-product').show();
+				$('#btn-create-product').hide();
+				ProductService.getProductById(id).then(function(res) {
+						vm.id = res.id;
+						vm.cnn = res.cnn;
+						vm.description = res.description;
+						$('.product-form').removeClass('hide');
+				});
+				
+				
+//						ProductService.getProductById(id).then(function(res) {
+//								vm.id = res.id;
+//								vm.name = res.name;
+//								vm.description = res.description;
+//								vm.price = res.price;
+//								$('#modal-product-form').openModal();
+//						});
 			 }
+			 
 			 vm.changePassword = function() {
 			     var link = ManagePasswordService.generateLink();
 			     
@@ -122,6 +143,17 @@
 			 vm.logout = function() {
 					 AuthenticationService.ClearCredentials();
 					 $location.path('/login');
+			 }
+			 
+			 function getAllTypes() {
+			     ProductService.getAllTypes().then(function(types) {
+				 vm.types = types;
+			     });
+			 }
+			 function getAllLocations() {
+			     ProductService.getAllLocations().then(function(locations) {
+				vm.locations = locations; 
+			     });
 			 }
 
 			 function manageModal(status, errMsg) {

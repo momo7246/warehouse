@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-		.module('app', ['ngRoute', 'ngCookies', 'angularUtils.directives.dirPagination', 'angularjs-crypto', 'angularUtils.directives.comparePassword'])
+		.module('app', ['ngRoute', 'ngCookies', 'angularUtils.directives.dirPagination', 'angularjs-crypto', 'angularUtils.directives.comparePassword', 'angularUtils.directives.productSelection'])
 		.config(config)
 		.run(run);
 
@@ -46,14 +46,14 @@
 			$http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
 		}
 
-		$rootScope.$on('$locationChangeStart', function (event, next, current) {
-			// redirect to login page if not logged in and trying to access a restricted page
-			var restrictedPage = $.inArray($location.path(), ['/', '/master']) >= 0;
-			var loggedIn = $rootScope.globals.currentUser;
-			if (restrictedPage && !loggedIn) {
-				$location.path('/login');
-			}
-		});
+//		$rootScope.$on('$locationChangeStart', function (event, next, current) {
+//			// redirect to login page if not logged in and trying to access a restricted page
+//			var restrictedPage = $.inArray($location.path(), ['/', '/master']) >= 0;
+//			var loggedIn = $rootScope.globals.currentUser;
+//			if (restrictedPage && !loggedIn) {
+//				$location.path('/login');
+//			}
+//		});
 	}
 
 })();
