@@ -30,13 +30,6 @@
 				    ele.text("View Master");
 				};
 				
-				getAllTypes();
-				getAllLocations();
-				
-				$scope.$watch('vm.productId', function(id) {
-				    vm.readOne(id);
-				});
-				
 				vm.sortBy = function(sortKey) {
 					vm.reverse = (vm.sortKey === sortKey) ? !vm.reverse : false;
 					vm.sortKey = sortKey;
@@ -51,39 +44,33 @@
 					 $('.product-form').removeClass('hide');
 			 }
 			 vm.clearForm = function(){
-					 vm.id = "";
-					 vm.name = "";
-					 vm.description = "";
-					 vm.price = "";
+			     vm.product = {};
 			 }
 			 vm.createProduct = function() {
+				if(vm.product === undefined) return;
 			 		vm.enableProgress = true;
-					 var data = {
-							 method: 'create',
-							 name: vm.name,
-							 description: vm.description,
-							 price: vm.price,
-							 user_id: user_id
-					 };
-					 ProductService.createProduct(data).then(function(res) {
-					 		manageModal(res.status, res.message);
+					vm.product['method'] = 'create';
+					vm.product['location_id'] = vm.product.location_id.id;
+					vm.product['type_id'] = vm.product.type_id.id;
+					vm.product['user_id'] = user_id;
+					 ProductService.createProduct(vm.product).then(function(res) {
+					     manageResponse(res.status, res.message);
 					 })
 					 .finally(function() {
 					 		vm.enableProgress = false;
 					 });
 			 }
-			 vm.updateProduct = function() {
+			 vm.updateProduct = function(id) {
+			     if(vm.product === undefined) return;
+				vm.clearForm();
+				vm.product['method'] = 'update';
+				vm.product['location_id'] = vm.product.location_id.id;
+				vm.product['type_id'] = vm.product.type_id.id;
+				vm.product['user_id'] = user_id;
+				vm.product['id'] = id;
 		 			vm.enableProgress = true;
-					 var data = {
-							 method: 'update',
-							 id: vm.id,
-							 name: vm.name,
-							 description: vm.description,
-							 price: vm.price,
-							 user_id: user_id
-					 };
-					 ProductService.updateProduct(data).then(function(res) {
-							 manageModal(res.status, res.message);
+					 ProductService.updateProduct(vm.product).then(function(res) {
+							 manageResponse(res.status, res.message);
 					 })
 					 .finally(function() {
 					 		vm.enableProgress = false;
@@ -103,35 +90,37 @@
 					 });
 			 }
 			 vm.getAll = function() {
-			     ProductService.getProductByUser(user_id).then(function(products) {
-				 angular.forEach(products, function(p) {
+			     ProductService.getProductByUser(user_id).then(function(entities) {
+				 vm.types = entities[0];
+				 vm.locations = entities[1];
+				 angular.forEach(entities[2], function(p) {
 				    p.id = parseInt(p.id);
 				    p.price = parseFloat(p.price);
+				    p.selected = false;
 				});
-				vm.products = products;
+				vm.products = entities[2];
 			     })
 			 }
+			 vm.triggerInfoDialog = function(id) {
+			     angular.forEach(vm.products, function(p) {
+				 if (p.id === id && p.selected){
+				     vm.readOne(id);
+				 } else {
+				     p.selected = false;
+				 }
+			     }); 
+			 }
 			 vm.readOne = function(id) {
-				vm.productId = id;
+				if (id === undefined) return;
+				vm.clearForm();
 				$('#product-form-title').text("Product Detail");
 				$('#btn-update-product').show();
 				$('#btn-delete-product').show();
 				$('#btn-create-product').hide();
 				ProductService.getProductById(id).then(function(res) {
-						vm.id = res.id;
-						vm.cnn = res.cnn;
-						vm.description = res.description;
-						$('.product-form').removeClass('hide');
+				    vm.product = res;
+				    $('.product-form').removeClass('hide');
 				});
-				
-				
-//						ProductService.getProductById(id).then(function(res) {
-//								vm.id = res.id;
-//								vm.name = res.name;
-//								vm.description = res.description;
-//								vm.price = res.price;
-//								$('#modal-product-form').openModal();
-//						});
 			 }
 			 
 			 vm.changePassword = function() {
@@ -144,23 +133,12 @@
 					 AuthenticationService.ClearCredentials();
 					 $location.path('/login');
 			 }
-			 
-			 function getAllTypes() {
-			     ProductService.getAllTypes().then(function(types) {
-				 vm.types = types;
-			     });
-			 }
-			 function getAllLocations() {
-			     ProductService.getAllLocations().then(function(locations) {
-				vm.locations = locations; 
-			     });
-			 }
 
-			 function manageModal(status, errMsg) {
+			 function manageResponse(status, errMsg) {
 			 		if (status) {
 					 		vm.getAll();
 					 		vm.clearForm();
-					 		$('#modal-product-form').closeModal();
+							$('.product-form').addClass('hide');
 					 } else {
 					 		Materialize.toast(errMsg, 5000);
 					 }

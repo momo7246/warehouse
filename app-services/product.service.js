@@ -5,29 +5,41 @@
         .module('app')
         .factory('ProductService', ProductService);
 
-    ProductService.$inject = ['$http'];
-    function ProductService($http) {
+    ProductService.$inject = ['$http', '$q'];
+    function ProductService($http, $q) {
         var service = {};
-
+	var promises = [];
+	
         service.getProductById = getProductById;
         service.getProductByUser = getProductByUser;
         service.getAllProduct = getAllProduct;
         service.createProduct = createProduct;
         service.updateProduct = updateProduct;
         service.deleteProduct = deleteProduct;
-	service.getAllTypes = getAllTypes;
-	service.getAllLocations = getAllLocations;
+//	service.getAllTypes = getAllTypes;
+//	service.getAllLocations = getAllLocations;
 
         return service;
 
+	
+//	var locations = $http.get('src/readLocation.php')
+//	    .then(handleSuccess, handleError('cannot get list of locations'));
+//	    promises.push(locations);
+	    
         function getAllProduct() {
-           return $http.get('src/readProducts.php')
-                   .then(handleSuccess, handleError('cannot get list of products'));
+	    return $q.all(promises).then($http.get('src/readProducts.php')
+                   .then(handleSuccess, handleError('cannot get list of products')));
+//           return $http.get('src/readProducts.php')
+//                   .then(handleSuccess, handleError('cannot get list of products'));
         }
         
         function getProductByUser(id) {
-            return $http.get('src/readProducts.php', {params: {user_id : id}})
+	    promises.push(getAllTypes());
+	    promises.push(getAllLocations());
+	    var getProducts = $http.get('src/readProducts.php', {params: {user_id : id}})
                    .then(handleSuccess, handleError('cannot get list of products for this user'));
+	    promises.push(getProducts);
+	    return $q.all(promises);
         }
         
         function getProductById(id) {
@@ -49,6 +61,9 @@
             return $http.post('src/manageProducts.php', data)
                     .then(handleSuccess, handleError('cannot update product'));
         }
+	
+	
+	    
 	
 	function getAllTypes() {
 	    return $http.get('src/readType.php')

@@ -51,7 +51,6 @@
 							<span class="sortorder" ng-show="vm.sortKey === 'ndbp'" ng-class="{reverse: vm.reverse}"></span>
 						</th>
                                                 <th class="text-align-center" ng-show="!vm.toggleMaster">Other</th>
-<!--						<th class="text-align-center" ng-show="!vm.toggleMaster">Action</th>-->
 					</tr>
 				</thead>
 
@@ -59,58 +58,25 @@
 					<tr dir-paginate="p in vm.products | filter:search | orderBy:vm.sortKey:vm.reverse | itemsPerPage:5" pagination-id="prodx">
 						<td class="hide">{{ p.id }}</td>
                                                 <td>
-                                                    <input name="selected{{p.id}}" type="checkbox" id="selected{{p.id}}" data-value="{{p.id}}" pro-selection="{{p.id}}" ng-model="p.id"/>
+                                                    <input name="selected{{p.id}}" type="checkbox" id="selected{{p.id}}" ng-model="p.selected" ng-change="vm.triggerInfoDialog(p.id)"/>
                                                     <label for="selected{{p.id}}"></label>
                                                 </td>
 						<td>{{ p.ccn }}</td>
 						<td>{{ p.description }}</td>
                                                 <td>{{ p.part_ng }}</td>
-                                                <td ng-repeat="data in vm.locations" ng-show="data.id==vm.p.location_id">{{ data.description }}</td>
+                                                <td ng-repeat="data in vm.locations" ng-switch="data.id">
+                                                    <div ng-switch-when="data.id == p.location_id">{{ data.description }}</div>
+                                                    <div ng-switch-when="data.id != p.location_id">-</div>
+                                                </td>
+                                                <td>{{ p.note }}</td>
                                                 <td ng-show="!vm.toggleMaster">{{ p.year }}</td>
                                                 <td ng-show="!vm.toggleMaster">{{ p.uslp }}</td>
                                                 <td ng-show="!vm.toggleMaster">{{ p.ndbp }}</td>
                                                 <td ng-show="!vm.toggleMaster">{{ p.other }}</td>
-<!--						<td ng-show="!vm.toggleMaster">
-							<a ng-click="vm.readOne(p.id)" class="waves-effect waves-light btn margin-bottom-1em"><i class="material-icons">edit</i></a>
-							<a ng-click="vm.deleteProduct(p.id)" class="waves-effect waves-light btn margin-bottom-1em" ng-class="{disabled:vm.enableDelete}"><i class="material-icons">delete</i></a>
-                                                        <a ng-click="vm.readOne(p.id)" class="waves-effect waves-light btn margin-bottom-1em"><i class="material-icons">info</i></a>
-						</td>-->
 					</tr>
 				</tbody>
 			</table>
 			<dir-pagination-controls pagination-id="prodx" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="dirPagination.tpl.html"></dir-pagination-controls>
-<!--			<div id="modal-product-form" class="modal" ng-show="!vm.toggleMaster">
-				<div class="modal-content">
-				<h4 id="modal-product-title">Create New Product</h4>
-					<div class="row">
-						<div class="input-field col s12">
-							<input ng-model="vm.name" type="text" class="validate" id="form-name" required/>
-							<label for="name">Name</label>
-						</div>
-
-						<div class="input-field col s12">
-							<textarea ng-model="vm.description" type="text" class="validate materialize-textarea" required></textarea>
-							<label for="description">Description</label>
-						</div>
-
-						<div class="input-field col s12">
-							<input ng-model="vm.price" type="text" class="validate" id="form-price" required/>
-							<label for="price">Price</label>
-						</div>
-
-						<div class="input-field col s12">
-							<a id="btn-create-product" class="waves-effect waves-light btn margin-bottom-1em" ng-click="vm.createProduct()"><i class="material-icons left" ng-class="{disabled:vm.enableProgress}">add</i>Create</a>
-
-							<a id="btn-update-product" class="waves-effect waves-light btn margin-bottom-1em" ng-click="vm.updateProduct()"><i class="material-icons left" ng-class="{disabled:vm.enableProgress}">edit</i>Save Changes</a>
-
-							<a class="modal-action modal-close waves-effect waves-light btn margin-bottom-1em"><i class="material-icons left">close</i>Close</a>
-						</div>
-					</div>
-					<div class="progress" ng-show="vm.enableProgress">
-					  	<div class="indeterminate"></div>
-				  	</div>
-				</div>
-			</div>-->
                         
 			<div class="fixed-action-btn" style="bottom:45px; right:24px;" ng-show="!vm.toggleMaster">
 				<a class="waves-effect waves-light btn modal-trigger btn-floating btn-large red" ng-click="vm.showCreateForm()"><i class="large material-icons">add</i></a>

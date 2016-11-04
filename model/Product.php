@@ -64,7 +64,7 @@ class Product
 		'uslp' => $this->uslp,
 		'ndbp' => $this->ndbp,
 		'other' => $this->other,
-		'user_id' => $this->user_id
+		'user_id' => $this->userId
 	    );
 	}
 }

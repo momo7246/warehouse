@@ -2,68 +2,72 @@
 <h5 id="product-form-title">Create New Product</h5>
         <div class="row">
                 <div class="input-field col s6">
-                        <input ng-model="vm.ccn" type="text" class="validate" id="form-name" required/>
-                        <label for="name">CCN#</label>
+                        <input ng-model="vm.product.ccn" type="text" class="validate" id="form-ccn" required/>
+                        <label for="ccn">CCN#</label>
                 </div>
             
                 <div class="input-field col s6">
-                        <input ng-model="vm.partNg" type="text" class="validate" id="form-partNg" required/>
+                        <input ng-model="vm.product.part_ng" type="text" class="validate" id="form-partNg" required/>
                         <label for="price">Part Ng.</label>
                 </div>
         </div>
         <div class="row">
+                <label for="type">Type</label>
                 <div class="input-field col s6">
-                        <select class="browser-default" ng-model="vm.type_id" ng-options="item as item.description for item in vm.types track by item.id"></select>
-                        <label for="type">Type</label>
+                    <select class="browser-default" ng-model="vm.product.type_id">
+                        <option ng-selected="{{item.id == vm.product.type_id}}" ng-options="item in vm.types" value="{{item.id}}">{{item.description}}</option>
+                    </select>
+                        <!--<select class="browser-default" ng-model="vm.product.type_id" ng-selected="{{item.id == vm.product.type_id}}" ng-options="item as item.description for item in vm.types track by item.id"></select>-->
+                        
                 </div>
-            
+                <label for="location">Location</label>
                 <div class="input-field col s6">
-                        <select class="browser-default" ng-model="vm.location_id" ng-options="item as item.description for item in vm.locations track by item.id"></select>
-                        <label for="location">Location</label>
+                        <select class="browser-default" ng-model="vm.product.location_id" ng-options="item as item.description for item in vm.locations track by item.id"></select>
+                        
                 </div>
         </div>
         <div class="row">
                 <div class="input-field col s6">
-                        <input ng-model="vm.uslp" type="text" class="validate" id="form-uslp" required/>
+                        <input ng-model="vm.product.uslp" type="text" class="validate" id="form-uslp" required/>
                         <label for="uslp">USLP</label>
                 </div>
             
                 <div class="input-field col s6">
-                        <input ng-model="vm.ndbp" type="text" class="validate" id="form-ndbp" required/>
+                        <input ng-model="vm.product.ndbp" type="text" class="validate" id="form-ndbp" required/>
                         <label for="ndbp">NDBP</label>
                 </div>
         </div>
         <div class="row">
                 <div class="input-field col s6">
-                        <input ng-model="vm.note" type="text" class="validate" id="form-note" required/>
+                        <input ng-model="vm.product.note" type="text" class="validate" id="form-note" required/>
                         <label for="note">Note</label>
                 </div>
                 <div class="input-field col s6">
-                        <input ng-model="vm.year" type="text" class="validate" id="form-year" required/>
+                        <input ng-model="vm.product.year" type="text" class="validate" id="form-year" required/>
                         <label for="price">Year</label>
                 </div>
         </div>
         <div class="row">
                 <div class="input-field col s12">
-                        <textarea ng-model="vm.description" type="text" class="validate materialize-textarea" required></textarea>
+                        <textarea ng-model="vm.product.description" type="text" class="validate materialize-textarea" required></textarea>
                         <label for="description">Description</label>
                 </div>
         </div>
         <div class="row">
                 <div class="input-field col s12">
-                        <textarea ng-model="vm.details" type="text" class="validate materialize-textarea" id="form-detail" required></textarea>
+                        <textarea ng-model="vm.product.details" type="text" class="validate materialize-textarea" id="form-detail" required></textarea>
                         <label for="price">Detail</label>
                 </div>
         </div>
         <div class="row">
                 <div class="input-field col s12">
-                        <textarea ng-model="vm.noteDetails" type="text" class="validate materialize-textarea" id="form-noteDetails" required></textarea>
+                        <textarea ng-model="vm.product.note_details" type="text" class="validate materialize-textarea" id="form-noteDetails" required></textarea>
                         <label for="noteDetails">Note Details</label>
                 </div>
         </div>
         <div class="row">
                 <div class="input-field col s12">
-                        <textarea ng-model="vm.other" type="text" class="validate materialize-textarea" id="form-other" required></textarea>
+                        <textarea ng-model="vm.product.other" type="text" class="validate materialize-textarea" id="form-other" required></textarea>
                         <label for="other">Other</label>
                 </div>
         </div>

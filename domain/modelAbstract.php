@@ -23,11 +23,11 @@ abstract class ModelAbstract
 	}
 	
 	protected function getColumn($object) {
-	    return implode(",", array_key($object));
+	    return implode(",", array_keys($object));
 	}
 	
 	protected function getColumnValues($object) {
-	    return implode(",", array_value($object));
+	    return implode('","', array_values($object));
 	}
 	
 	protected function getSetStatement($object) {
