@@ -1,7 +1,7 @@
 <?php
-include_once 'modelAbstract.php';
+include_once 'Domain.php';
 
-class LocationDomain extends ModelAbstract
+class LocationDomain extends Domain
 {
 	private $tableName = 'location';
 
@@ -18,6 +18,4 @@ class LocationDomain extends ModelAbstract
 		}
 		return $results;
 	}
-
-	public function bindParams() {}
 }

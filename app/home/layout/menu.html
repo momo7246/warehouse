@@ -5,13 +5,13 @@
 </script>
 <nav ng-init="vm.toggleInit()">
     <div class="nav-wrapper">
-      <ul class="right hide-on-med-and-down">
+      <ul class="right">
         <li><a ng-click="vm.toggleView()" id="toggle-view"><i class="material-icons left">star</i><span>View</span></a></li>
         <li><a class="dropdown-button" data-activates="account-dropdown"><i class="material-icons left">perm_identity</i>Account<i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
     </div>
 </nav>
 <ul id="account-dropdown" class="dropdown-content">
-    <li><a ng-click="vm.changePassword()">Change Password</a></li>
+    <li><a ng-click="vm.changePassword()" ng-class="{redfont:vm.alertChangePassword}"><i class="material-icons left" ng-show="vm.alertChangePassword">warning</i>Change Password</a></li>
     <li><a ng-click="vm.logout()">Logout!</a></li>
 </ul>

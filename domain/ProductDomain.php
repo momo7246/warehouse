@@ -1,7 +1,7 @@
 <?php
-include_once 'modelAbstract.php';
+include_once 'Domain.php';
 
-class ProductDomain extends ModelAbstract
+class ProductDomain extends Domain
 {
 	private $tableName = 'products';
 	
@@ -31,7 +31,7 @@ class ProductDomain extends ModelAbstract
 		$query = "DELETE FROM ".$this->tableName." WHERE id = :id";
 		$this->connect($query);
 		
-		return $this->stmt->execute(array('id' => $this->id));     
+		return $this->stmt->execute(array('id' => $id));     
 	}
 		
 	public function getAll() {
@@ -75,6 +75,4 @@ class ProductDomain extends ModelAbstract
 		}
 		return $result;
 	}
-		
-	public function bindParams() {}
 }

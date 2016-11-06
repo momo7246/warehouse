@@ -11,25 +11,25 @@
 		$routeProvider
 			.when('/', {
 				controller: 'HomeController',
-				templateUrl: 'home/home.view.html',
+				templateUrl: 'app/home/home.view.html',
 				controllerAs: 'vm'
 			})
 			
 			.when('/master', {
 				controller: 'MasterController',
-				templateUrl: 'home/home.view.html',
+				templateUrl: 'app/home/home.view.html',
 				controllerAs: 'vm'
 			})
 
 			.when('/login', {
 				controller: 'LoginController',
-				templateUrl: 'login/login.view.html',
+				templateUrl: 'app/login/login.view.html',
 				controllerAs: 'vm'
 			})
 			
 			.when('/resetPassword/:end/:id',  {
 				controller: 'PasswordController',
-				templateUrl: 'password/password.view.html',
+				templateUrl: 'app/password/password.view.html',
 				controllerAs: 'vm'
 			})
 
@@ -46,14 +46,14 @@
 			$http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
 		}
 
-//		$rootScope.$on('$locationChangeStart', function (event, next, current) {
-//			// redirect to login page if not logged in and trying to access a restricted page
-//			var restrictedPage = $.inArray($location.path(), ['/', '/master']) >= 0;
-//			var loggedIn = $rootScope.globals.currentUser;
-//			if (restrictedPage && !loggedIn) {
-//				$location.path('/login');
-//			}
-//		});
+		$rootScope.$on('$locationChangeStart', function (event, next, current) {
+			// redirect to login page if not logged in and trying to access a restricted page
+			var restrictedPage = $.inArray($location.path(), ['/', '/master']) >= 0;
+			var loggedIn = $rootScope.globals.currentUser || $cookies.get('globals');
+			if (restrictedPage && !loggedIn) {
+				$location.path('/login');
+			}
+		});
 	}
 
 })();

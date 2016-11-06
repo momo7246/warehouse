@@ -22,7 +22,7 @@
                });
         }
 
-        function SetCredentials(id, username, password, role) {
+        function SetCredentials(id, username, password, role, lastModified) {
             var authdata = Base64.encode(username + ':' + password);
 
             $rootScope.globals = {
@@ -30,7 +30,8 @@
                     id: id,
                     username: username,
                     authdata: authdata,
-                    role: role
+                    role: role,
+                    lastModified: lastModified
                 }
             };
 

@@ -1,7 +1,7 @@
 <?php
-include_once 'modelAbstract.php';
+include_once 'Domain.php';
 
-class TypeDomain extends ModelAbstract
+class TypeDomain extends Domain
 {
 	private $tableName = 'type';
 
@@ -18,6 +18,4 @@ class TypeDomain extends ModelAbstract
 		}
 		return $results;
 	}
-
-	public function bindParams() {}
 }

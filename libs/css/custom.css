@@ -90,3 +90,42 @@ and open the template in the editor.
     background-color: #f5f2f0;
     border: solid 1px rgba(51,51,51,0.12);
 }
+.loading-center {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.redfont {
+    color: #ba2a2a !important;
+}
+
+.title-wrapper {
+    position: relative;
+    padding-bottom: 35px;
+}
+
+#product-form-title {
+    position: absolute;
+    font-size: 1.64rem;
+}
+
+.close-button-wrapper {
+    position: absolute;
+    right: 0;
+    padding: 2px;
+    background-color: lightgrey;
+    border: 1px solid;
+}
+
+.close-button-wrapper > .close {
+    -webkit-appearance: none;
+    cursor: pointer;
+    background: 0 0;
+    border: 0;
+    font-size: 25px;
+    line-height: 20px;
+}
