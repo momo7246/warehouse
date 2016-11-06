@@ -1,4 +1,4 @@
-<div class="product-form hide">
+<div class="product-form hide" style="position:relative;">
 	<div class="title-wrapper">
 		<div id="product-form-title">Create New Product</div>
 		<div class="close-button-wrapper">
@@ -93,7 +93,9 @@
 				<a id="btn-delete-product" class="waves-effect waves-light btn margin-bottom-1em red" ng-click="vm.deleteProduct(vm.product.id)" ng-class="{disabled:vm.enableProgress}"><i class="material-icons left">edit</i>Delete</a>
 		</div>
 	</form>
-	<div class="progress" ng-show="vm.enableProgress">
+	<div class="progress-wrapper" ng-show="vm.enableProgress">
+		<div class="progress">
 			<div class="indeterminate"></div>
+		</div>
 	</div>
 </div>

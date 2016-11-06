@@ -32,7 +32,7 @@ class Domain
 	protected function getSetStatement($object) {
 		$set = array();
 		foreach($object as $key => $value) {
-			array_push($set, $key."=".$value);
+			array_push($set, $key."='".$value."'");
 		}
 		return " SET ".implode(",", $set);
 	}

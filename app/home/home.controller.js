@@ -73,6 +73,7 @@
 			vm.updateProduct = function(id) {
 				if(vm.product === undefined) return;
 
+				vm.enableProgress = true;
 				vm.product['method'] = 'update';
 				vm.product['user_id'] = user_id;
 				vm.product['id'] = id;
