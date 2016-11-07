@@ -10,7 +10,7 @@
 			HomeToggleService.init();
 			var vm = this;
 
-			vm.bigSpinner = true;
+			vm.hasProducts = true;
 			vm.toggleMaster = HomeToggleService.toggleMaster();
 			vm.sortKey = 'id';
 			vm.reverse = true;
@@ -31,12 +31,17 @@
 			};
 
 			vm.getAll = function() {
+				vm.bigSpinner = true;
 				ProductService.getAllProduct().then(function(entities) {
 					vm.locations = entities[0];
 					angular.forEach(entities[1], function(p) {
 						p.id = parseInt(p.id);
+						p.cnn = parseInt(p.cnn);
 					});
 					vm.products = entities[1];
+					if (vm.products.length == 0) {
+						vm.hasProducts = false;
+					}
 				})
 				.finally(function() {
 					vm.bigSpinner = false;
@@ -46,6 +51,10 @@
 			vm.toggleView = function() {
 				$location.path('/');
 				HomeToggleService.enableMasterHome();
+			}
+
+			vm.getBoolean = function(str) {
+			    return !!JSON.parse(String(str).toLowerCase());
 			}
 		}
 })();

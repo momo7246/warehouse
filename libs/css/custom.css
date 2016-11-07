@@ -150,3 +150,11 @@ and open the template in the editor.
 .small-correct {
     color: green;
 }
+
+.button-collapse {
+    padding-left: 10px;
+}
+
+.button-collapse:hover {
+    cursor: pointer;
+}

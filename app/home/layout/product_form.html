@@ -76,7 +76,7 @@
 		</div>
 		<div class="row">
 				<div class="input-field col s12">
-						<textarea ng-model="vm.product.details" type="text" class="validate materialize-textarea" id="details" required></textarea>
+						<textarea ng-model="vm.product.details" type="text" class="validate materialize-textarea" id="details"></textarea>
 						<label for="details">Detail</label>
 				</div>
 		</div>
@@ -88,11 +88,11 @@
 		</div>
 		
 		<div class="input-field row s12">
-				<a id="btn-create-product" class="waves-effect waves-light btn margin-bottom-1em" ng-click="vm.createProduct()" ng-disabled="!vm.product.type_id && !vm.product.location_id" ng-class="{disabled:vm.enableProgress}"><i class="material-icons left" >add</i>Create</a>
+				<button id="btn-create-product" class="waves-effect waves-light btn margin-bottom-1em" ng-click="vm.createProduct()" ng-disabled="(!vm.product.type_id && !vm.product.location_id) || vm.enableProgress"><i class="material-icons left">add</i>Create</button>
 
-				<a id="btn-update-product" class="waves-effect waves-light btn margin-bottom-1em" ng-click="vm.updateProduct(vm.product.id)" ng-class="{disabled:vm.enableProgress}"><i class="material-icons left">edit</i>Save Changes</a>
+				<button id="btn-update-product" class="waves-effect waves-light btn margin-bottom-1em" ng-click="vm.updateProduct(vm.product.id)" ng-disabled="vm.enableProgress"><i class="material-icons left">edit</i>Save Changes</button>
 				
-				<a id="btn-delete-product" class="waves-effect waves-light btn margin-bottom-1em red" ng-click="vm.deleteProduct(vm.product.id)" ng-class="{disabled:vm.enableProgress}"><i class="material-icons left">edit</i>Delete</a>
+				<button id="btn-delete-product" class="waves-effect waves-light btn margin-bottom-1em red" ng-click="vm.triggerDelete()" ng-disabled="vm.enableProgress"><i class="material-icons left">edit</i>Delete</button>
 		</div>
 	</form>
 	<div class="progress-wrapper" ng-show="vm.enableProgress">
@@ -100,4 +100,14 @@
 			<div class="indeterminate"></div>
 		</div>
 	</div>
+</div>
+
+<div id="modal-delete-product" class="modal">
+		<div class="modal-content">
+			<h4 id="modal-title">Delete Confirmation: <b>{{ vm.product.ccn }}</b></h4>
+			<p>Are you sure you want to <b>permanently delete</b> the selected element.</p>
+			<div class='row'>
+				<a class="waves-effect waves-light btn red" ng-click="vm.deleteProduct(vm.product.id)">Delete</a>
+			</div>
+		</div>
 </div>

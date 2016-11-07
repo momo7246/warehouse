@@ -6,10 +6,9 @@ class ManageEmail
 	private $email;
 	private $subject = 'Reset Password Confirmation';
 	
-	public function __construct($link, $email, $subject = '') {
+	public function __construct($link, $email) {
 		$this->link = $link;
 		$this->email = $email;
-		$this->subject = $subject;
 	}
 
 	public function sendEmail() {
@@ -18,7 +17,6 @@ class ManageEmail
 				"MIME-Version: 1.0",
 				"Content-type:text/html;charset=UTF-8",
 				"From: alice_7246@hotmail.com",
-//				"Reply-To: replyto@example.com",
 				"X-Mailer: PHP/" . PHP_VERSION
 		);
 		$headers = implode("\r\n", $headersArr);

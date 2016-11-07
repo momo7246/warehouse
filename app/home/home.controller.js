@@ -16,9 +16,9 @@
 		function HomeController(ProductService, $location, HomeToggleService, $cookies, MenuService) {
 			HomeToggleService.init();
 			var vm = this,
-					user_id = $cookies.getObject('globals').currentUser.id;
+				user_id = $cookies.getObject('globals').currentUser.id;
 
-			vm.bigSpinner = true;
+			vm.hasProducts = true;
 			vm.toggleMaster = HomeToggleService.toggleMaster();
 			vm.sortKey = 'id';
 			vm.reverse = true;
@@ -87,6 +87,10 @@
 				});
 			}
 
+			vm.triggerDelete = function() {
+				$('#modal-delete-product').openModal();
+			}
+
 			vm.deleteProduct = function(id) {
 				vm.enableProgress = true;
 				var data = {
@@ -95,7 +99,8 @@
 				};
 
 				ProductService.deleteProduct(data).then(function(res) {
-					manageResponse(res.status, res.message, 'Succesfully delete product')
+					manageResponse(res.status, res.message, 'Succesfully delete product');
+					$('#modal-delete-product').closeModal();
 				})
 				.finally(function() {
 					vm.enableProgress = false;
@@ -103,6 +108,8 @@
 			}
 
 			vm.getAll = function() {
+				vm.bigSpinner = true;
+				vm.hasProducts = true;
 				ProductService.getProductByUser(user_id).then(function(entities) {
 					vm.types = entities[0];
 					vm.locations = entities[1];
@@ -112,6 +119,9 @@
 						p.selected = false;
 					});
 					vm.products = entities[2];
+					if (vm.products.length == 0) {
+						vm.hasProducts = false;
+					}
 				})
 				.finally(function() {
 					vm.bigSpinner = false;
@@ -140,7 +150,6 @@
 					$('#btn-delete-product').show();
 					$('#btn-create-product').hide();
 					$(".product-form label").addClass('active');
-//					$('.product-form').removeClass('hide');
 				})
 				.finally(function() {
 					vm.loadingFormSpinner = false;
@@ -174,14 +183,14 @@
 			vm.enableNote = function(checked) {
 			    var enabled;
 			    if (checked === '1' || checked === '0') {
-				enabled = vm.getBoolean(checked) ? false : true;
+					enabled = vm.getBoolean(checked) ? false : true;
 			    } else {
-				enabled = vm.getBoolean(checked);
+					enabled = vm.getBoolean(checked);
 			    }
 			    if (!enabled) {
-				vm.product.note_details = '';
-				var ele = angular.element(document.getElementById('noteDetails').parentElement.parentElement);
-				ele.addClass('ng-hide');
+					vm.product.note_details = '';
+					var ele = angular.element(document.getElementById('noteDetails').parentElement.parentElement);
+					ele.addClass('ng-hide');
 			    }
 			}
 		}

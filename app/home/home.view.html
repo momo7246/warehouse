@@ -14,75 +14,76 @@
 	<div class="row">
 		<div class="col s12">
 			<h4>Products</h4>
-			<!-- used for searching the current list -->
-			<input type="text" ng-model="search" class="form-control" placeholder="Search product..." />
-			
-                        <div ng-include src="vm.templateLoading" ng-show="vm.bigSpinner"></div>
-			
-                        <table id="product-table" class="hoverable bordered" ng-show="!vm.bigSpinner">
-				<thead>
-					<tr>
-						<th class="text-align-center hide">ID</th>
-						<th class="text-align-center" ng-show="!vm.toggleMaster">Select</th>
-						<th class="text-align-center">
-							<button ng-click="vm.sortBy('ccn')">CCN#</button>
-							<span class="sortorder" ng-show="vm.sortKey === 'ccn'" ng-class="{reverse: vm.reverse}"></span>
-						</th>
-						<th class="text-align-center">
-							<button ng-click="vm.sortBy('description')">Description</button>
-							<span class="sortorder" ng-show="vm.sortKey === 'description'" ng-class="{reverse: vm.reverse}"></span>
-						</th>
-						<th class="text-align-center">
-							<button ng-click="vm.sortBy('partNg')">Part Ng.</button>
-							<span class="sortorder" ng-show="vm.sortKey === 'partNg'" ng-class="{reverse: vm.reverse}"></span>
-						</th>
-						<th class="text-align-center">
-							<button ng-click="vm.sortBy('location')">Location</button>
-							<span class="sortorder" ng-show="vm.sortKey === 'location'" ng-class="{reverse: vm.reverse}"></span>
-						</th>
-						<th class="text-align-center">Note</th>
-						<th class="text-align-center" ng-show="!vm.toggleMaster">
-							<button ng-click="vm.sortBy('year')">Year</button>
-							<span class="sortorder" ng-show="vm.sortKey === 'year'" ng-class="{reverse: vm.reverse}"></span>
-						</th>
-						<th class="text-align-center" ng-show="!vm.toggleMaster">
-							<button ng-click="vm.sortBy('uslp')">USLP</button>
-							<span class="sortorder" ng-show="vm.sortKey === 'uslp'" ng-class="{reverse: vm.reverse}"></span>
-						</th>
-						<th class="text-align-center" ng-show="!vm.toggleMaster">
-							<button ng-click="vm.sortBy('ndbp')">NDBP</button>
-							<span class="sortorder" ng-show="vm.sortKey === 'ndbp'" ng-class="{reverse: vm.reverse}"></span>
-						</th>
-						<th class="text-align-center" ng-show="!vm.toggleMaster">Other</th>
-					</tr>
-				</thead>
+			<div ng-if="!vm.hasProducts">No Product found...</div>
+			<div ng-if="vm.hasProducts">
+				<input type="text" ng-model="search" class="form-control" placeholder="Search product..." />
+				
+				<div ng-include src="vm.templateLoading" ng-show="vm.bigSpinner"></div>
+	
+				<table id="product-table" class="hoverable bordered" ng-show="!vm.bigSpinner">
+					<thead>
+						<tr>
+							<th class="text-align-center hide">ID</th>
+							<th class="text-align-center" ng-show="!vm.toggleMaster">Select</th>
+							<th class="text-align-center">
+								<button ng-click="vm.sortBy('ccn')">CCN#</button>
+								<span class="sortorder" ng-show="vm.sortKey === 'ccn'" ng-class="{reverse: vm.reverse}"></span>
+							</th>
+							<th class="text-align-center">
+								<button ng-click="vm.sortBy('description')">Description</button>
+								<span class="sortorder" ng-show="vm.sortKey === 'description'" ng-class="{reverse: vm.reverse}"></span>
+							</th>
+							<th class="text-align-center">
+								<button ng-click="vm.sortBy('partNg')">Part Ng.</button>
+								<span class="sortorder" ng-show="vm.sortKey === 'partNg'" ng-class="{reverse: vm.reverse}"></span>
+							</th>
+							<th class="text-align-center">
+								<button ng-click="vm.sortBy('location')">Location</button>
+								<span class="sortorder" ng-show="vm.sortKey === 'location'" ng-class="{reverse: vm.reverse}"></span>
+							</th>
+							<th class="text-align-center">Note</th>
+							<th class="text-align-center" ng-show="!vm.toggleMaster">
+								<button ng-click="vm.sortBy('year')">Year</button>
+								<span class="sortorder" ng-show="vm.sortKey === 'year'" ng-class="{reverse: vm.reverse}"></span>
+							</th>
+							<th class="text-align-center" ng-show="!vm.toggleMaster">
+								<button ng-click="vm.sortBy('uslp')">USLP</button>
+								<span class="sortorder" ng-show="vm.sortKey === 'uslp'" ng-class="{reverse: vm.reverse}"></span>
+							</th>
+							<th class="text-align-center" ng-show="!vm.toggleMaster">
+								<button ng-click="vm.sortBy('ndbp')">NDBP</button>
+								<span class="sortorder" ng-show="vm.sortKey === 'ndbp'" ng-class="{reverse: vm.reverse}"></span>
+							</th>
+							<th class="text-align-center" ng-show="!vm.toggleMaster">Other</th>
+						</tr>
+					</thead>
 
-				<tbody ng-init="vm.getAll()">
-					<tr dir-paginate="p in vm.products | filter:search | orderBy:vm.sortKey:vm.reverse | itemsPerPage:5" pagination-id="prodx">
-						<td class="hide">{{ p.id }}</td>
-						<td ng-show="!vm.toggleMaster">
-							<input name="selected{{p.id}}" type="checkbox" id="selected{{p.id}}" ng-model="p.selected" ng-change="vm.triggerInfoDialog(p.id)"/>
-							<label for="selected{{p.id}}"></label>
-						</td>
-						<td>{{ p.ccn }}</td>
-						<td>{{ p.description }}</td>
-						<td>{{ p.part_ng }}</td>
-						<td ng-repeat="data in vm.locations" ng-show="data.id == p.location_id">
-							{{ data.description }}
-						</td>
-						<td>
-                                                    <div ng-if="vm.getBoolean(p.note)" class="small-correct"><i class="material-icons">done</i></div>
-                                                    <div ng-if="!vm.getBoolean(p.note)" class="small-x">X</div>
-                                                </td>
-						<td ng-show="!vm.toggleMaster">{{ p.year }}</td>
-						<td ng-show="!vm.toggleMaster">{{ p.uslp }}</td>
-						<td ng-show="!vm.toggleMaster">{{ p.ndbp }}</td>
-						<td ng-show="!vm.toggleMaster">{{ p.other }}</td>
-					</tr>
-				</tbody>
-			</table>
-			<dir-pagination-controls pagination-id="prodx" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="dirPagination.tpl.html"></dir-pagination-controls>
-						
+					<tbody ng-init="vm.getAll()">
+						<tr dir-paginate="p in vm.products | filter:search | orderBy:vm.sortKey:vm.reverse | itemsPerPage:5" pagination-id="prodx">
+							<td class="hide">{{ p.id }}</td>
+							<td ng-show="!vm.toggleMaster">
+								<input name="selected{{p.id}}" type="checkbox" id="selected{{p.id}}" ng-model="p.selected" ng-change="vm.triggerInfoDialog(p.id)"/>
+								<label for="selected{{p.id}}"></label>
+							</td>
+							<td>{{ p.ccn }}</td>
+							<td>{{ p.description }}</td>
+							<td>{{ p.part_ng }}</td>
+							<td ng-repeat="data in vm.locations" ng-show="data.id == p.location_id">
+								{{ data.description }}
+							</td>
+							<td>
+														<div ng-if="vm.getBoolean(p.note)" class="small-correct"><i class="material-icons">done</i></div>
+														<div ng-if="!vm.getBoolean(p.note)" class="small-x">X</div>
+													</td>
+							<td ng-show="!vm.toggleMaster">{{ p.year }}</td>
+							<td ng-show="!vm.toggleMaster">{{ p.uslp }}</td>
+							<td ng-show="!vm.toggleMaster">{{ p.ndbp }}</td>
+							<td ng-show="!vm.toggleMaster">{{ p.other }}</td>
+						</tr>
+					</tbody>
+				</table>
+				<dir-pagination-controls pagination-id="prodx" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="dirPagination.tpl.html"></dir-pagination-controls>
+			</div>			
 			<div class="fixed-action-btn" style="bottom:45px; right:24px;" ng-show="!vm.toggleMaster && !vm.bigSpinner">
 				<a class="waves-effect waves-light btn modal-trigger btn-floating btn-large red" ng-click="vm.showCreateForm()"><i class="large material-icons">add</i></a>
 			</div>
@@ -93,11 +94,11 @@
 </div>
 
 <div id="modal-alert-password" class="modal">
-        <div class="modal-content">
-	        <h4 id="modal-title">Condidering changing password!</h4>
-	        <p><b>Your password will be expired soon.</b> If you want to change your password, please click on the link below.</p>
-	        <div class='row'>
-	            <button id="submit-request-password" type='submit' class='col s12 btn btn-large waves-effect indigo' ng-click="vm.changePassword()">Change Password</button>
-	        </div>
-        </div>
+		<div class="modal-content">
+			<h4 id="modal-title">Condidering changing password!</h4>
+			<p><b>Your password will be expired soon.</b> If you want to change your password, please click on the link below.</p>
+			<div class='row'>
+				<button id="submit-request-password" type='submit' class='col s12 btn btn-large waves-effect indigo' ng-click="vm.changePassword()">Change Password</button>
+			</div>
+		</div>
 </div>
