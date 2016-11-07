@@ -1,4 +1,6 @@
-<div class="product-form hide" style="position:relative;">
+<div ng-include src="vm.templateLoading" ng-show="vm.loadingFormSpinner"></div>
+
+<div class="product-form hide" style="position:relative;" ng-class="{hide: vm.loadingFormSpinner}">
 	<div class="title-wrapper">
 		<div id="product-form-title">Create New Product</div>
 		<div class="close-button-wrapper">
@@ -8,13 +10,13 @@
 	<form id="productFormInput">
 		<div class="row">
 				<div class="input-field col s6">
-						<input ng-model="vm.product.ccn" type="text" class="validate" id="form-ccn"/>
+						<input ng-model="vm.product.ccn" type="text" class="validate" id="ccn"/>
 						<label for="ccn">CCN#</label>
 				</div>
 			
 				<div class="input-field col s6">
-						<input ng-model="vm.product.part_ng" type="text" class="validate" id="form-partNg"/>
-						<label for="price">Part Ng.</label>
+						<input ng-model="vm.product.part_ng" type="text" class="validate" id="partNg"/>
+						<label for="partNg">Part Ng.</label>
 				</div>
 		</div>
 		<div class="row" style="position:relative">
@@ -41,46 +43,46 @@
 		</div>
 		<div class="row">
 				<div class="input-field col s6">
-						<input ng-model="vm.product.uslp" type="text" class="validate" id="form-uslp"/>
+						<input ng-model="vm.product.uslp" type="text" class="validate" id="uslp"/>
 						<label for="uslp">USLP</label>
 				</div>
 			
 				<div class="input-field col s6">
-						<input ng-model="vm.product.ndbp" type="text" class="validate" id="form-ndbp"/>
+						<input ng-model="vm.product.ndbp" type="text" class="validate" id="ndbp"/>
 						<label for="ndbp">NDBP</label>
 				</div>
 		</div>
 		<div class="row">
 				<div class="input-field col s6">
-						<input ng-model="vm.product.note" type="text" class="validate" id="form-note"/>
-						<label for="note">Note</label>
+						<input ng-model="vm.product.year" type="text" class="validate" id="year"/>
+						<label for="year">Year</label>
 				</div>
-				<div class="input-field col s6">
-						<input ng-model="vm.product.year" type="text" class="validate" id="form-year"/>
-						<label for="price">Year</label>
-				</div>
-		</div>
-		<div class="row">
-				<div class="input-field col s12">
-						<textarea ng-model="vm.product.description" type="text" class="validate materialize-textarea"></textarea>
-						<label for="description">Description</label>
+                                <div class="input-field col s6">
+                                                <input ng-model="vm.product.note " type="checkbox" id="note" ng-click="vm.enableNote(vm.product.note)" ng-checked="vm.product.note && vm.getBoolean(vm.product.note)"/>
+						<label for="note">Enable Note</label>
 				</div>
 		</div>
-		<div class="row">
+                <div class="row" ng-show="vm.product.note && vm.getBoolean(vm.product.note)">
 				<div class="input-field col s12">
-						<textarea ng-model="vm.product.details" type="text" class="validate materialize-textarea" id="form-detail" required></textarea>
-						<label for="price">Detail</label>
-				</div>
-		</div>
-		<div class="row">
-				<div class="input-field col s12">
-						<textarea ng-model="vm.product.note_details" type="text" class="validate materialize-textarea" id="form-noteDetails"></textarea>
+						<textarea ng-model="vm.product.note_details" type="text" class="validate materialize-textarea" id="noteDetails"></textarea>
 						<label for="noteDetails">Note Details</label>
 				</div>
 		</div>
 		<div class="row">
 				<div class="input-field col s12">
-						<textarea ng-model="vm.product.other" type="text" class="validate materialize-textarea" id="form-other"></textarea>
+						<textarea ng-model="vm.product.description" type="text" class="validate materialize-textarea" id="description"></textarea>
+						<label for="description">Description</label>
+				</div>
+		</div>
+		<div class="row">
+				<div class="input-field col s12">
+						<textarea ng-model="vm.product.details" type="text" class="validate materialize-textarea" id="details" required></textarea>
+						<label for="details">Detail</label>
+				</div>
+		</div>
+		<div class="row">
+				<div class="input-field col s12">
+						<textarea ng-model="vm.product.other" type="text" class="validate materialize-textarea" id="other"></textarea>
 						<label for="other">Other</label>
 				</div>
 		</div>

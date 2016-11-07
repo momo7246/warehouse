@@ -16,20 +16,10 @@
 			<h4>Products</h4>
 			<!-- used for searching the current list -->
 			<input type="text" ng-model="search" class="form-control" placeholder="Search product..." />
-			<div ng-show="vm.bigSpinner">
-				<div class="preloader-wrapper big active loading-center">
-					<div class="spinner-layer spinner-blue-only">
-						<div class="circle-clipper left">
-							<div class="circle"></div>
-						</div><div class="gap-patch">
-						<div class="circle"></div>
-						</div><div class="circle-clipper right">
-							<div class="circle"></div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<table id="product-table" class="hoverable bordered" ng-show="!vm.bigSpinner">
+			
+                        <div ng-include src="vm.templateLoading" ng-show="vm.bigSpinner"></div>
+			
+                        <table id="product-table" class="hoverable bordered" ng-show="!vm.bigSpinner">
 				<thead>
 					<tr>
 						<th class="text-align-center hide">ID</th>
@@ -80,7 +70,10 @@
 						<td ng-repeat="data in vm.locations" ng-show="data.id == p.location_id">
 							{{ data.description }}
 						</td>
-						<td>{{ p.note }}</td>
+						<td>
+                                                    <div ng-if="vm.getBoolean(p.note)" class="small-correct"><i class="material-icons">done</i></div>
+                                                    <div ng-if="!vm.getBoolean(p.note)" class="small-x">X</div>
+                                                </td>
 						<td ng-show="!vm.toggleMaster">{{ p.year }}</td>
 						<td ng-show="!vm.toggleMaster">{{ p.uslp }}</td>
 						<td ng-show="!vm.toggleMaster">{{ p.ndbp }}</td>

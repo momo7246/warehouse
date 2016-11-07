@@ -53,7 +53,7 @@ class ManagePassword
 		$user = $this->domain->emailExisted($this->data['email']);
 		if(!empty($user)) {
 			$link = $this->data['link'] . "/" . $user['id'];
-			$m = new ManageEmail($link);
+			$m = new ManageEmail($link, $user['email']);
 			$emailRes = $m->sendEmail();
 			$res = array('status' => $emailRes['status'], 'message' => $emailRes['message']);
 		} else {

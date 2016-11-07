@@ -27,6 +27,7 @@
 			vm.logout = MenuService.logout;
 			vm.templateMenu = 'app/home/layout/menu.html';
 			vm.templateForm = 'app/home/layout/product_form.html';
+			vm.templateLoading = 'app/home/layout/loading.html';
 
 			if (vm.alertChangePassword) {
 				$('#modal-alert-password').openModal();
@@ -87,7 +88,7 @@
 			}
 
 			vm.deleteProduct = function(id) {
-				vm.enableDelete = true;
+				vm.enableProgress = true;
 				var data = {
 					method: 'delete',
 					id: id
@@ -97,7 +98,7 @@
 					manageResponse(res.status, res.message, 'Succesfully delete product')
 				})
 				.finally(function() {
-					vm.enableDelete = false;
+					vm.enableProgress = false;
 				});
 			}
 
@@ -107,7 +108,7 @@
 					vm.locations = entities[1];
 					angular.forEach(entities[2], function(p) {
 						p.id = parseInt(p.id);
-						p.price = parseFloat(p.price);
+						p.cnn = parseInt(p.cnn);
 						p.selected = false;
 					});
 					vm.products = entities[2];
@@ -118,6 +119,7 @@
 			}
 
 			vm.triggerInfoDialog = function(id) {
+				$('.product-form').addClass('hide');
 				angular.forEach(vm.products, function(p) {
 					if (p.id === id && p.selected){
 						vm.readOne(id);
@@ -129,16 +131,19 @@
 
 			vm.readOne = function(id) {
 				if (id === undefined) return;
+				vm.loadingFormSpinner = true;
 				clearForm();
-				$(".product-form label").addClass('active');
-				$('#product-form-title').text("Product Detail");
-				$('#btn-update-product').show();
-				$('#btn-delete-product').show();
-				$('#btn-create-product').hide();
-
 				ProductService.getProductById(id).then(function(res) {
 					vm.product = res;
-					$('.product-form').removeClass('hide');
+					$('#product-form-title').text("Product Detail");
+					$('#btn-update-product').show();
+					$('#btn-delete-product').show();
+					$('#btn-create-product').hide();
+					$(".product-form label").addClass('active');
+//					$('.product-form').removeClass('hide');
+				})
+				.finally(function() {
+					vm.loadingFormSpinner = false;
 				});
 			}
 
@@ -160,6 +165,24 @@
 			vm.toggleView = function() {
 				$location.path('/master');
 				HomeToggleService.enableMasterHome();
+			}
+			
+			vm.getBoolean = function(str) {
+			    return !!JSON.parse(String(str).toLowerCase());
+			}
+			
+			vm.enableNote = function(checked) {
+			    var enabled;
+			    if (checked === '1' || checked === '0') {
+				enabled = vm.getBoolean(checked) ? false : true;
+			    } else {
+				enabled = vm.getBoolean(checked);
+			    }
+			    if (!enabled) {
+				vm.product.note_details = '';
+				var ele = angular.element(document.getElementById('noteDetails').parentElement.parentElement);
+				ele.addClass('ng-hide');
+			    }
 			}
 		}
 

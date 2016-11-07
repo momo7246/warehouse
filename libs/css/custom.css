@@ -140,3 +140,13 @@ and open the template in the editor.
     background: #535353;
     padding: 100px;
 }
+
+.small-x {
+    font-weight: bold;
+    font-size: medium;
+    color: red;
+}
+
+.small-correct {
+    color: green;
+}

@@ -18,6 +18,7 @@
 			vm.changePassword = MenuService.changePasswordLink;
 			vm.logout = MenuService.logout;
 			vm.templateMenu = 'app/home/layout/menu.html';
+			vm.templateLoading = 'app/home/layout/loading.html';
 
 			vm.toggleInit = function() {
 				var ele = $("#toggle-view span");
