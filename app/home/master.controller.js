@@ -18,7 +18,15 @@
 			vm.changePassword = MenuService.changePasswordLink;
 			vm.logout = MenuService.logout;
 			vm.templateMenu = 'app/home/layout/menu.html';
+			vm.templateProduct = 'app/home/layout/product-table.html';
 			vm.templateLoading = 'app/home/layout/loading.html';
+			vm.sortBySelection = [
+				{value: "ccn", description: "CCN#"},
+				{value: "description", description: "Description"},
+				{value: "part_ng", description: "Part Ng."},
+				{value: "location", description: "Location"},
+				{value: "year", description: "Year"}
+			    ];
 
 			vm.toggleInit = function() {
 				var ele = $("#toggle-view span");

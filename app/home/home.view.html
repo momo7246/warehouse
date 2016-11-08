@@ -17,71 +17,18 @@
 			<div ng-if="!vm.hasProducts">No Product found...</div>
 			<div ng-if="vm.hasProducts">
 				<input type="text" ng-model="search" class="form-control" placeholder="Search product..." />
+                                
+                                <select class="sort-box show-on-small" ng-model="vm.sortKey" ng-change="vm.sortBy(vm.sortKey)">
+                                        <option value="id">Sort By...</option>
+                                        <option ng-selected="{{option.value == vm.sortKey}}" ng-repeat="option in vm.sortBySelection" value="{{option.value}}">
+                                          Sort By: {{option.description}}
+                                        </option>
+                                </select>
 				
 				<div ng-include src="vm.templateLoading" ng-show="vm.bigSpinner"></div>
 	
-				<table id="product-table" class="hoverable bordered" ng-show="!vm.bigSpinner">
-					<thead>
-						<tr>
-							<th class="text-align-center hide">ID</th>
-							<th class="text-align-center" ng-show="!vm.toggleMaster">Select</th>
-							<th class="text-align-center">
-								<button ng-click="vm.sortBy('ccn')">CCN#</button>
-								<span class="sortorder" ng-show="vm.sortKey === 'ccn'" ng-class="{reverse: vm.reverse}"></span>
-							</th>
-							<th class="text-align-center">
-								<button ng-click="vm.sortBy('description')">Description</button>
-								<span class="sortorder" ng-show="vm.sortKey === 'description'" ng-class="{reverse: vm.reverse}"></span>
-							</th>
-							<th class="text-align-center">
-								<button ng-click="vm.sortBy('partNg')">Part Ng.</button>
-								<span class="sortorder" ng-show="vm.sortKey === 'partNg'" ng-class="{reverse: vm.reverse}"></span>
-							</th>
-							<th class="text-align-center">
-								<button ng-click="vm.sortBy('location')">Location</button>
-								<span class="sortorder" ng-show="vm.sortKey === 'location'" ng-class="{reverse: vm.reverse}"></span>
-							</th>
-							<th class="text-align-center">Note</th>
-							<th class="text-align-center" ng-show="!vm.toggleMaster">
-								<button ng-click="vm.sortBy('year')">Year</button>
-								<span class="sortorder" ng-show="vm.sortKey === 'year'" ng-class="{reverse: vm.reverse}"></span>
-							</th>
-							<th class="text-align-center" ng-show="!vm.toggleMaster">
-								<button ng-click="vm.sortBy('uslp')">USLP</button>
-								<span class="sortorder" ng-show="vm.sortKey === 'uslp'" ng-class="{reverse: vm.reverse}"></span>
-							</th>
-							<th class="text-align-center" ng-show="!vm.toggleMaster">
-								<button ng-click="vm.sortBy('ndbp')">NDBP</button>
-								<span class="sortorder" ng-show="vm.sortKey === 'ndbp'" ng-class="{reverse: vm.reverse}"></span>
-							</th>
-							<th class="text-align-center" ng-show="!vm.toggleMaster">Other</th>
-						</tr>
-					</thead>
-
-					<tbody ng-init="vm.getAll()">
-						<tr dir-paginate="p in vm.products | filter:search | orderBy:vm.sortKey:vm.reverse | itemsPerPage:5" pagination-id="prodx">
-							<td class="hide">{{ p.id }}</td>
-							<td ng-show="!vm.toggleMaster">
-								<input name="selected{{p.id}}" type="checkbox" id="selected{{p.id}}" ng-model="p.selected" ng-change="vm.triggerInfoDialog(p.id)"/>
-								<label for="selected{{p.id}}"></label>
-							</td>
-							<td>{{ p.ccn }}</td>
-							<td>{{ p.description }}</td>
-							<td>{{ p.part_ng }}</td>
-							<td ng-repeat="data in vm.locations" ng-show="data.id == p.location_id">
-								{{ data.description }}
-							</td>
-							<td>
-														<div ng-if="vm.getBoolean(p.note)" class="small-correct"><i class="material-icons">done</i></div>
-														<div ng-if="!vm.getBoolean(p.note)" class="small-x">X</div>
-													</td>
-							<td ng-show="!vm.toggleMaster">{{ p.year }}</td>
-							<td ng-show="!vm.toggleMaster">{{ p.uslp }}</td>
-							<td ng-show="!vm.toggleMaster">{{ p.ndbp }}</td>
-							<td ng-show="!vm.toggleMaster">{{ p.other }}</td>
-						</tr>
-					</tbody>
-				</table>
+                                <div ng-init="vm.getAll()" src="vm.templateProduct" ng-include></div>
+                                
 				<dir-pagination-controls pagination-id="prodx" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="dirPagination.tpl.html"></dir-pagination-controls>
 			</div>			
 			<div class="fixed-action-btn" style="bottom:45px; right:24px;" ng-show="!vm.toggleMaster && !vm.bigSpinner">

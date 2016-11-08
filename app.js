@@ -2,12 +2,18 @@
 	'use strict';
 
 	angular
-		.module('app', ['ngRoute', 'ngCookies', 'angularUtils.directives.dirPagination', 'angularjs-crypto', 'angularUtils.directives.comparePassword'])
+		.module('app', [
+		    'ngRoute',
+		    'ngCookies',
+		    'angularUtils.directives.dirPagination',
+		    'angularjs-crypto',
+		    'angularUtils.directives.comparePassword'
+		])
 		.config(config)
 		.run(run);
 
-	config.$inject = ['$routeProvider', '$locationProvider'];
-	function config($routeProvider, $locationProvider) {
+	config.$inject = ['$routeProvider'];
+	function config($routeProvider) {
 		$routeProvider
 			.when('/', {
 				controller: 'HomeController',

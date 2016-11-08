@@ -26,8 +26,18 @@
 			vm.changePassword = MenuService.changePasswordLink;
 			vm.logout = MenuService.logout;
 			vm.templateMenu = 'app/home/layout/menu.html';
+			vm.templateProduct = 'app/home/layout/product-table.html';
 			vm.templateForm = 'app/home/layout/product_form.html';
 			vm.templateLoading = 'app/home/layout/loading.html';
+			vm.sortBySelection = [
+				{value: "ccn", description: "CCN#"},
+				{value: "description", description: "Description"},
+				{value: "part_ng", description: "Part Ng."},
+				{value: "location", description: "Location"},
+				{value: "year", description: "Year"},
+				{value: "uslp", description: "USLP"},
+				{value: "ndbp", description: "NDBP"},
+			    ];
 
 			if (vm.alertChangePassword) {
 				$('#modal-alert-password').openModal();
