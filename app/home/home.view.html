@@ -29,7 +29,6 @@
 	
                                 <div ng-init="vm.getAll()" src="vm.templateProduct" ng-include></div>
                                 
-				<dir-pagination-controls pagination-id="prodx" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="dirPagination.tpl.html"></dir-pagination-controls>
 			</div>			
 			<div class="fixed-action-btn" style="bottom:45px; right:24px;" ng-show="!vm.toggleMaster && !vm.bigSpinner">
 				<a class="waves-effect waves-light btn modal-trigger btn-floating btn-large red" ng-click="vm.showCreateForm()"><i class="large material-icons">add</i></a>
