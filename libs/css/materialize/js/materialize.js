@@ -2103,8 +2103,14 @@ $(document).ready(function(){
 
         // Add Touch Area
         var dragTarget = $('<div class="drag-target"></div>');
+	
+	if($('.drag-target').length){
+	    $('.drag-target').remove();
+	    removeMenu();
+        }
+	
         $('body').append(dragTarget);
-
+	
         if (options.edge == 'left') {
           menu_id.css('transform', 'translateX(-100%)');
           dragTarget.css({'left': 0}); // Add Touch Area

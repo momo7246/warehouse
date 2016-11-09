@@ -7,14 +7,17 @@
   }
 </style>
 <script src="libs/js/dirPagination.js"></script>
-
 <div class="container" ng-include src="vm.templateMenu"></div>
 
 <div class="container">
 	<div class="row">
 		<div class="col s12">
 			<h4>Products</h4>
-			<div ng-if="!vm.hasProducts">No Product found...</div>
+			<div ng-if="!vm.hasProducts" class="overlay-grey">
+                            <div class="product-not-found">
+                                No Product found...
+                            </div>
+                        </div>
 			<div ng-if="vm.hasProducts">
 				<input type="text" ng-model="search" class="form-control" placeholder="Search product..." />
                                 
@@ -41,7 +44,7 @@
 
 <div id="modal-alert-password" class="modal">
 		<div class="modal-content">
-			<h4 id="modal-title">Condidering changing password!</h4>
+			<h4 id="modal-title">Considering changing password!</h4>
 			<p><b>Your password will be expired soon.</b> If you want to change your password, please click on the link below.</p>
 			<div class='row'>
 				<button id="submit-request-password" type='submit' class='col s12 btn btn-large waves-effect indigo' ng-click="vm.changePassword()">Change Password</button>

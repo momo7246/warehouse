@@ -95,12 +95,9 @@
 				<button id="btn-delete-product" class="waves-effect waves-light btn margin-bottom-1em red" ng-click="vm.triggerDelete()" ng-disabled="vm.enableProgress"><i class="material-icons left">edit</i>Delete</button>
 		</div>
 	</form>
-	<div class="progress-wrapper" ng-show="vm.enableProgress">
-		<div class="progress">
-			<div class="indeterminate"></div>
-		</div>
-	</div>
 </div>
+
+<div ng-include src="vm.templateLoading" ng-show="vm.enableProgress"></div>
 
 <div id="modal-delete-product" class="modal">
 		<div class="modal-content">

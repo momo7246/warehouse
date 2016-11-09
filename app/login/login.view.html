@@ -28,7 +28,7 @@
 							<br />
 							<center>
 								<div class='row'>
-									<button type='submit' class='col s12 btn btn-large waves-effect indigo' ng-class="{disabled:vm.enableSpinner}">Login</button>
+									<button type='submit' class='col s12 btn btn-large waves-effect indigo' ng-disabled="vm.enableSpinner">Login</button>
 								</div>
 								<div class="preloader-wrapper small active" ng-show="vm.enableSpinner">
 									<div class="spinner-layer spinner-white-only">

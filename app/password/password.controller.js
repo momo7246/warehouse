@@ -21,6 +21,7 @@
 		}
 
 		vm.submitPassword = function() {
+			vm.enableSpinner = true;
 			var data = {
 						id: user_id,
 						password: EncryptionService.Encrypt(vm.pw1),
@@ -33,6 +34,9 @@
 				} else {
 					Materialize.toast('Error: Cannot change password', 5000);
 				}
+			})
+			.finally(function() {
+			    vm.enableSpinner = false;
 			});
 		}
 
