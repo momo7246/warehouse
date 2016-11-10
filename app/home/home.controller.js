@@ -127,7 +127,9 @@
 					vm.locations = entities[1];
 					angular.forEach(entities[2], function(p) {
 						p.id = parseInt(p.id);
-						p.cnn = parseInt(p.cnn);
+						p.ccn = parseInt(p.ccn);
+						p.uslp = parseFloat(p.uslp);
+						p.ndbp = parseFloat(p.ndbp);
 						p.selected = false;
 					});
 					vm.products = entities[2];

@@ -46,7 +46,6 @@
 		
 		vm.requestPassword = function() {
 			$('#request-password-form input').val("");
-			$('#submit-request-password').removeClass('disabled');
 			$('.request-error').addClass('hide');
 			$('.request-success').addClass('hide');
 			$('#modal-request-password').openModal();
@@ -64,7 +63,6 @@
 				vm.disabledResetPassword = true;
 				$('.request-error').addClass('hide');
 				$('.request-success').removeClass('hide');
-				$('#submit-request-password').addClass('disabled');
 			} else {
 				$('.request-error').removeClass('hide');
 				$('.request-success').addClass('hide');

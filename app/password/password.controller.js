@@ -11,10 +11,12 @@
 		encryptString = $routeParams.end,
 		user_id = $routeParams.id,
 		currentDate = new Date().setHours(0,0,0,0),
-		endDate = EncryptionService.Decrypt(encryptString);
+		endDate = EncryptionService.Decrypt(encryptString),
+		splitEndDate = endDate.split("-");
+
 		vm.expired = false;
 
-		if (new Date(endDate).setHours(0,0,0,0) < currentDate) {
+		if (new Date(splitEndDate[1]+"/"+splitEndDate[2]+"/"+splitEndDate[0]).setHours(0,0,0,0) < currentDate) {
 			vm.expired = true;
 			vm.message = "Seems like this page is already expired";
 			vm.templateUrl = 'app/error/error.view.html';

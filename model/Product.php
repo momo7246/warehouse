@@ -16,6 +16,7 @@ class Product
 	public $ndbp;
 	public $other;
 	public $userId;
+	public $modifiedDate;
 		
 	public function __construct(
 		$id = null,
@@ -31,7 +32,8 @@ class Product
 		$year = null,
 		$uslp = null,
 		$ndbp = null,
-		$other = null
+		$other = null,
+		$modifiedDate = null
 	) {
 		$this->id = htmlspecialchars(strip_tags($id));
 		$this->ccn = htmlspecialchars(strip_tags($ccn));
@@ -47,6 +49,7 @@ class Product
 		$this->ndbp = htmlspecialchars(strip_tags($ndbp));
 		$this->other = htmlspecialchars(strip_tags($other));
 		$this->userId = htmlspecialchars(strip_tags($userId));
+		$this->modifiedDate = htmlspecialchars(strip_tags($modifiedDate));
 	}
 	
 	public function getProduct() {
@@ -64,7 +67,8 @@ class Product
 		'uslp' => $this->uslp,
 		'ndbp' => $this->ndbp,
 		'other' => $this->other,
-		'user_id' => $this->userId
+		'user_id' => $this->userId,
+		'modified_date' => $this->modifiedDate
 	    );
 	}
 }

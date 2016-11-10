@@ -7,7 +7,8 @@
 		    'ngCookies',
 		    'angularUtils.directives.dirPagination',
 		    'angularjs-crypto',
-		    'angularUtils.directives.comparePassword'
+		    'angularUtils.directives.comparePassword',
+		    'angularUtils.directives.currencyFormat'
 		])
 		.config(config)
 		.run(run);

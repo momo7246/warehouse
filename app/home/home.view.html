@@ -39,15 +39,16 @@
 		</div>
 
 		<div class="col s12" ng-include src="vm.templateForm"></div>
-	</div>
-</div>
 
-<div id="modal-alert-password" class="modal">
-		<div class="modal-content">
-			<h4 id="modal-title">Considering changing password!</h4>
-			<p><b>Your password will be expired soon.</b> If you want to change your password, please click on the link below.</p>
-			<div class='row'>
-				<button id="submit-request-password" type='submit' class='col s12 btn btn-large waves-effect indigo' ng-click="vm.changePassword()">Change Password</button>
+		<div id="modal-alert-password" class="modal">
+			<div class="modal-content">
+				<h4 id="modal-title">Considering changing password!</h4>
+				<p><b>Your password will be expired soon.</b> If you want to change your password, please click on the link below.</p>
+				<div class='row'>
+					<button class='cwaves-effect waves-light btn' ng-click="vm.changePassword()">Change Password</button>
+				</div>
 			</div>
 		</div>
+
+	</div>
 </div>

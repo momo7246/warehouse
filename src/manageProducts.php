@@ -23,11 +23,13 @@ class ManageProducts {
 	
 	private $data;
 	private $domain;
+	private $now;
 	private $msg = 'OK';
 	
 	public function __construct($data) {
 		$this->data = $data;
 		$this->domain = new ProductDomain();
+		$this->now = date("Y-m-d H:i:s");
 	}
 
 	public function createProduct() {
@@ -45,7 +47,8 @@ class ManageProducts {
 			$this->getParameter('year'),
 			$this->getParameter('uslp'),
 			$this->getParameter('ndbp'),
-			$this->getParameter('other')
+			$this->getParameter('other'),
+			$this->now
 				);
 		$product = $p->getProduct();
 		$status = $this->domain->createProduct($product);
@@ -72,7 +75,8 @@ class ManageProducts {
 			$this->getParameter('year'),
 			$this->getParameter('uslp'),
 			$this->getParameter('ndbp'),
-			$this->getParameter('other')
+			$this->getParameter('other'),
+			$this->now
 		);
 		$product = $p->getProduct();
 		$status = $this->domain->updateProduct($product);
