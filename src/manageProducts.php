@@ -33,19 +33,19 @@ class ManageProducts {
 	public function createProduct() {
 		$p = new Product(
 			null,
-			$this->data->user_id,
-			$this->data->ccn,
-			$this->data->description,
-			$this->data->details,
-			$this->data->part_ng,
-			$this->data->type_id,
-			$this->data->location_id,
+			$this->getParameter('user_id'),
+			$this->getParameter('ccn'),
+			$this->getParameter('description'),
+			$this->getParameter('details'),
+			$this->getParameter('part_ng'),
+			$this->getParameter('type_id'),
+			$this->getParameter('location_id'),
 			$this->data->note,
-			$this->data->note_details,
-			$this->data->year,
-			$this->data->uslp,
-			$this->data->ndbp,
-			$this->data->other
+			$this->getParameter('note_details'),
+			$this->getParameter('year'),
+			$this->getParameter('uslp'),
+			$this->getParameter('ndbp'),
+			$this->getParameter('other')
 				);
 		$product = $p->getProduct();
 		$status = $this->domain->createProduct($product);
@@ -59,20 +59,20 @@ class ManageProducts {
 	
 	public function updateProduct() {
 		$p = new Product(
-			$this->data->id,
+			$this->getParameter('id'),
 			null,
-			$this->data->ccn,
-			$this->data->description,
-			$this->data->details,
-			$this->data->part_ng,
-			$this->data->type_id,
-			$this->data->location_id,
+			$this->getParameter('ccn'),
+			$this->getParameter('description'),
+			$this->getParameter('details'),
+			$this->getParameter('part_ng'),
+			$this->getParameter('type_id'),
+			$this->getParameter('location_id'),
 			$this->data->note,
-			$this->data->note_details,
-			$this->data->year,
-			$this->data->uslp,
-			$this->data->ndbp,
-			$this->data->other
+			$this->getParameter('note_details'),
+			$this->getParameter('year'),
+			$this->getParameter('uslp'),
+			$this->getParameter('ndbp'),
+			$this->getParameter('other')
 		);
 		$product = $p->getProduct();
 		$status = $this->domain->updateProduct($product);
@@ -88,5 +88,9 @@ class ManageProducts {
 			"message" => $this->msg
 		);
 		echo json_encode($response);
+	}
+	
+	private function getParameter($key) {
+	    return (!empty($this->data->{$key})) ? $this->data->{$key} : null; 
 	}
 }

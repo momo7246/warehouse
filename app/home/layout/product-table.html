@@ -26,39 +26,32 @@
         </tbody>
 </table>
 
-<table id="product-table" class="hoverable bordered hide-on-small-only" ng-show="!vm.bigSpinner">
+<table id="product-table" class="hoverable bordered big-product-table hide-on-small-only" ng-show="!vm.bigSpinner">
     <thead>
             <tr>
                     <th class="text-align-center hide">ID</th>
                     <th class="text-align-center" ng-show="!vm.toggleMaster">Select</th>
-                    <th class="text-align-center">
-                            <button ng-click="vm.sortBy('ccn')">CCN#</button>
-                            <span class="sortorder" ng-show="vm.sortKey === 'ccn'" ng-class="{reverse: vm.reverse}"></span>
+                    <th class="text-align-center sortable" ng-class="{'sort-asc': vm.sortKey === 'ccn' && !vm.reverse, 'sort-desc': vm.sortKey === 'ccn' && vm.reverse}">
+                            <a href ng-click="vm.sortBy('ccn')">CCN#</a>
                     </th>
-                    <th class="text-align-center">
-                            <button ng-click="vm.sortBy('description')">Description</button>
-                            <span class="sortorder" ng-show="vm.sortKey === 'description'" ng-class="{reverse: vm.reverse}"></span>
+                    <th class="text-align-center sortable" ng-class="{'sort-asc': vm.sortKey === 'description' && !vm.reverse, 'sort-desc': vm.sortKey === 'description' && vm.reverse}">
+                            <a href ng-click="vm.sortBy('description')">Description</a>
                     </th>
-                    <th class="text-align-center">
-                            <button ng-click="vm.sortBy('part_ng')">Part Ng.</button>
-                            <span class="sortorder" ng-show="vm.sortKey === 'part_ng'" ng-class="{reverse: vm.reverse}"></span>
+                    <th class="text-align-center sortable" ng-class="{'sort-asc': vm.sortKey === 'part_ng' && !vm.reverse, 'sort-desc': vm.sortKey === 'part_ng' && vm.reverse}">
+                            <a href ng-click="vm.sortBy('part_ng')">Part Ng.</a>
                     </th>
-                    <th class="text-align-center">
-                            <button ng-click="vm.sortBy('location')">Location</button>
-                            <span class="sortorder" ng-show="vm.sortKey === 'location'" ng-class="{reverse: vm.reverse}"></span>
+                    <th class="text-align-center sortable" ng-class="{'sort-asc': vm.sortKey === 'location' && !vm.reverse, 'sort-desc': vm.sortKey === 'location' && vm.reverse}">
+                            <a href ng-click="vm.sortBy('location')">Location</a>
                     </th>
                     <th class="text-align-center">Note</th>
-                    <th class="text-align-center" ng-show="!vm.toggleMaster">
-                            <button ng-click="vm.sortBy('year')">Year</button>
-                            <span class="sortorder" ng-show="vm.sortKey === 'year'" ng-class="{reverse: vm.reverse}"></span>
+                    <th class="text-align-center sortable" ng-show="!vm.toggleMaster" ng-class="{'sort-asc': vm.sortKey === 'year' && !vm.reverse, 'sort-desc': vm.sortKey === 'year' && vm.reverse}">
+                            <a href ng-click="vm.sortBy('year')">Year</a>
                     </th>
-                    <th class="text-align-center" ng-show="!vm.toggleMaster">
-                            <button ng-click="vm.sortBy('uslp')">USLP</button>
-                            <span class="sortorder" ng-show="vm.sortKey === 'uslp'" ng-class="{reverse: vm.reverse}"></span>
+                    <th class="text-align-center sortable" ng-show="!vm.toggleMaster" ng-class="{'sort-asc': vm.sortKey === 'uslp' && !vm.reverse, 'sort-desc': vm.sortKey === 'uslp' && vm.reverse}">
+                            <a href ng-click="vm.sortBy('uslp')">USLP</a>
                     </th>
-                    <th class="text-align-center" ng-show="!vm.toggleMaster">
-                            <button ng-click="vm.sortBy('ndbp')">NDBP</button>
-                            <span class="sortorder" ng-show="vm.sortKey === 'ndbp'" ng-class="{reverse: vm.reverse}"></span>
+                    <th class="text-align-center sortable" ng-show="!vm.toggleMaster" ng-class="{'sort-asc': vm.sortKey === 'ndbp' && !vm.reverse, 'sort-desc': vm.sortKey === 'ndbp' && vm.reverse}">
+                            <a href ng-click="vm.sortBy('ndbp')">NDBP</a>
                     </th>
                     <th class="text-align-center" ng-show="!vm.toggleMaster">Other</th>
             </tr>

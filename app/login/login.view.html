@@ -1,7 +1,18 @@
+<script>
+	$(document).ready(function(){
+            var body = $('body'),
+                dragTarget = $('.drag-target');
+                if (dragTarget.length) {
+                    dragTarget.remove();
+                    body.removeAttr('style');
+                }
+	});
+</script>
+
 <main>
 		<center>
 				<h5 class="indigo-text">Please, login into your account</h5>
-				<div class="container">
+				<div class="container" style="padding:30px;">
 						<div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
 						<form class="col s12" ng-submit="vm.login()">
 							<div class='row'>
@@ -45,6 +56,7 @@
 						</form>
 						</div>
 				</div>
+                                <div class="browser-info">This application only support browser: Chrome 35+, Firefox 31+, Safari 7+, IE 10+</div>
 		</center>
 </main>
 <div id="modal-request-password" class="modal">

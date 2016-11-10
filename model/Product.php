@@ -26,7 +26,7 @@ class Product
 		$partNg = null,
 		$typeId = null,
 		$locationId = null,
-		$note = null,
+		$note = false,
 		$noteDetails = null,
 		$year = null,
 		$uslp = null,
@@ -40,7 +40,7 @@ class Product
 		$this->partNg = htmlspecialchars(strip_tags($partNg));
 		$this->typeId = htmlspecialchars(strip_tags($typeId));
 		$this->locationId = htmlspecialchars(strip_tags($locationId));
-		$this->note = htmlspecialchars(strip_tags($note));
+		$this->note = (string)intval($note);
 		$this->noteDetails = htmlspecialchars(strip_tags($noteDetails));
 		$this->year = htmlspecialchars(strip_tags($year));
 		$this->uslp = htmlspecialchars(strip_tags($uslp));

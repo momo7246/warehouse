@@ -14,7 +14,7 @@ class Domain
 	
 	protected function cutObjectKeys($object){
 		foreach($object as $key => $_) {
-			if(empty($object[$key])) {
+			if(!isset($object[$key]) || $object[$key] === '') {
 				unset($object[$key]);
 			}
 		}

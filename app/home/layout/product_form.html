@@ -104,7 +104,7 @@
 			<h4 id="modal-title">Delete Confirmation: <b>{{ vm.product.ccn }}</b></h4>
 			<p>Are you sure you want to <b>permanently delete</b> the selected element.</p>
 			<div class='row'>
-				<a class="waves-effect waves-light btn red" ng-click="vm.deleteProduct(vm.product.id)">Delete</a>
+                            <button class="waves-effect waves-light btn red" ng-click="vm.deleteProduct(vm.product.id)" ng-disabled="vm.enableProgress">Delete</button>
 			</div>
 		</div>
 </div>

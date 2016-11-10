@@ -72,6 +72,7 @@
 				vm.enableProgress = true;
 				vm.product['method'] = 'create';
 				vm.product['user_id'] = user_id;
+				vm.product['note'] = (vm.product['note_details'] != "" && vm.product['note_details'] != undefined) ? true : false;
 
 				ProductService.createProduct(vm.product).then(function(res) {
 					manageResponse(res.status, res.message, 'Successfully create product');
@@ -88,6 +89,7 @@
 				vm.product['method'] = 'update';
 				vm.product['user_id'] = user_id;
 				vm.product['id'] = id;
+				vm.product['note'] = (vm.product['note_details'] != "" && vm.product['note_details'] != undefined) ? true : false;
 
 				ProductService.updateProduct(vm.product).then(function(res) {
 					manageResponse(res.status, res.message, 'Successfully update product');

@@ -197,3 +197,33 @@ and open the template in the editor.
     top: 0;
     z-index: 999;
 }
+
+.browser-info {
+    position: absolute;
+    color: grey;
+    font-size: small;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+
+.sortable {
+    background: url('../../app/resource/column-sortable.png') no-repeat right;
+}
+.sort-asc {
+    background: url('../../app/resource/column-asc.png') no-repeat right;
+}
+.sort-desc {
+    background: url('../../app/resource/column-desc.png') no-repeat right;
+}
+
+.big-product-table a {
+    color: black;
+}
+.big-product-table thead {
+    background-color: #d0d0d0;
+}
+.big-product-table th {
+    border: 1px solid grey;
+}
