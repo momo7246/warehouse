@@ -33,7 +33,7 @@
 				{value: "ccn", description: "CCN#"},
 				{value: "description", description: "Description"},
 				{value: "part_ng", description: "Part Ng."},
-				{value: "location", description: "Location"},
+				{value: "location_id", description: "Location"},
 				{value: "year", description: "Year"},
 				{value: "uslp", description: "USLP"},
 				{value: "ndbp", description: "NDBP"},
@@ -99,15 +99,16 @@
 				});
 			}
 
-			vm.triggerDelete = function() {
+			vm.triggerDelete = function(id) {
+				vm.deleteProductId = id;
 				$('#modal-delete-product').openModal();
 			}
 
-			vm.deleteProduct = function(id) {
+			vm.deleteProduct = function() {
 				vm.enableProgress = true;
 				var data = {
 					method: 'delete',
-					id: id
+					id: vm.deleteProductId
 				};
 
 				ProductService.deleteProduct(data).then(function(res) {
@@ -130,6 +131,7 @@
 						p.ccn = parseInt(p.ccn);
 						p.uslp = parseFloat(p.uslp);
 						p.ndbp = parseFloat(p.ndbp);
+						p.year = parseInt(p.year);
 						p.selected = false;
 					});
 					vm.products = entities[2];

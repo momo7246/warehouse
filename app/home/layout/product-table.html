@@ -5,6 +5,7 @@
                     <td ng-show="!vm.toggleMaster">
                         <input name="selected{{p.id}}" type="checkbox" id="selected{{p.id}}" ng-model="p.selected" ng-change="vm.triggerInfoDialog(p.id)"/>
                         <label for="selected{{p.id}}"></label>
+                        <div class="link-pointer" ng-click="vm.triggerDelete(p.id)"><i class="material-icons small">delete</i></div>
                     </td>
                     <td style="width:50%">
                         <p><b>CCN#:</b> {{ p.ccn }}</p>
@@ -30,7 +31,7 @@
     <thead>
             <tr>
                     <th class="text-align-center hide">ID</th>
-                    <th class="text-align-center" ng-show="!vm.toggleMaster">Select</th>
+                    <th class="text-align-center" ng-show="!vm.toggleMaster" style="min-width: 75px;">Select</th>
                     <th class="text-align-center sortable" ng-class="{'sort-asc': vm.sortKey === 'ccn' && !vm.reverse, 'sort-desc': vm.sortKey === 'ccn' && vm.reverse}">
                             <a href ng-click="vm.sortBy('ccn')">CCN#</a>
                     </th>
@@ -40,8 +41,8 @@
                     <th class="text-align-center sortable" ng-class="{'sort-asc': vm.sortKey === 'part_ng' && !vm.reverse, 'sort-desc': vm.sortKey === 'part_ng' && vm.reverse}">
                             <a href ng-click="vm.sortBy('part_ng')">Part Ng.</a>
                     </th>
-                    <th class="text-align-center sortable" ng-class="{'sort-asc': vm.sortKey === 'location' && !vm.reverse, 'sort-desc': vm.sortKey === 'location' && vm.reverse}">
-                            <a href ng-click="vm.sortBy('location')">Location</a>
+                    <th class="text-align-center sortable" ng-class="{'sort-asc': vm.sortKey === 'location_id' && !vm.reverse, 'sort-desc': vm.sortKey === 'location_id' && vm.reverse}">
+                            <a href ng-click="vm.sortBy('location_id')">Location</a>
                     </th>
                     <th class="text-align-center">Note</th>
                     <th class="text-align-center sortable" ng-show="!vm.toggleMaster" ng-class="{'sort-asc': vm.sortKey === 'year' && !vm.reverse, 'sort-desc': vm.sortKey === 'year' && vm.reverse}">
@@ -60,9 +61,12 @@
     <tbody>
             <tr dir-paginate="p in vm.products | filter:search | orderBy:vm.sortKey:vm.reverse | itemsPerPage:5" pagination-id="prodx">
                     <td class="hide">{{ p.id }}</td>
-                    <td ng-show="!vm.toggleMaster">
+                    <td ng-show="!vm.toggleMaster" style="position:absolute; min-width: 75px;">
+                        <div style="position:relative; float:left;">
                             <input name="selected{{p.id}}" type="checkbox" id="selected{{p.id}}" ng-model="p.selected" ng-change="vm.triggerInfoDialog(p.id)"/>
                             <label for="selected{{p.id}}"></label>
+                        </div>
+                        <div class="delete-icon link-pointer" ng-click="vm.triggerDelete(p.id)"><i class="material-icons small">delete</i></div>
                     </td>
                     <td>{{ p.ccn }}</td>
                     <td>{{ p.description }}</td>

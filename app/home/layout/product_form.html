@@ -1,6 +1,6 @@
 <div ng-include src="vm.templateLoading" ng-show="vm.loadingFormSpinner"></div>
 
-<div class="product-form hide" style="position:relative;" ng-class="{hide: vm.loadingFormSpinner}">
+<div id="product-form" class="product-form hide" style="position:relative;" ng-class="{hide: vm.loadingFormSpinner}">
 	<div class="title-wrapper">
 		<div id="product-form-title">Create New Product</div>
 		<div class="close-button-wrapper">
@@ -92,19 +92,9 @@
 
 				<button id="btn-update-product" class="waves-effect waves-light btn margin-bottom-1em" ng-click="vm.updateProduct(vm.product.id)" ng-disabled="vm.enableProgress"><i class="material-icons left">edit</i>Save Changes</button>
 				
-				<button id="btn-delete-product" class="waves-effect waves-light btn margin-bottom-1em red" ng-click="vm.triggerDelete()" ng-disabled="vm.enableProgress"><i class="material-icons left">edit</i>Delete</button>
+				<button id="btn-delete-product" class="waves-effect waves-light btn margin-bottom-1em red" ng-click="vm.triggerDelete(vm.product.id)" ng-disabled="vm.enableProgress"><i class="material-icons left">edit</i>Delete</button>
 		</div>
 	</form>
 </div>
 
 <div ng-include src="vm.templateLoading" ng-show="vm.enableProgress"></div>
-
-<div id="modal-delete-product" class="modal">
-		<div class="modal-content">
-			<h4 id="modal-title">Delete Confirmation: <b>{{ vm.product.ccn }}</b></h4>
-			<p>Are you sure you want to <b>permanently delete</b> the selected element.</p>
-			<div class='row'>
-                            <button class="waves-effect waves-light btn red" ng-click="vm.deleteProduct(vm.product.id)" ng-disabled="vm.enableProgress">Delete</button>
-			</div>
-		</div>
-</div>

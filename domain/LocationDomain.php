@@ -1,5 +1,9 @@
 <?php
 include_once 'Domain.php';
+include_once '../config/Security.php';
+
+$s = new Security();
+$s->authenticate();
 
 class LocationDomain extends Domain
 {

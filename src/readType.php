@@ -1,6 +1,10 @@
 <?php 
 
-include('../domain/TypeDomain.php');
+include_once '../domain/TypeDomain.php';
+include_once '../config/Security.php';
+
+$s = new Security();
+$s->authenticate();
 
 $domain = new TypeDomain();
 $types = $domain->getAll();

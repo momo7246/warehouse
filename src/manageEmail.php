@@ -1,4 +1,9 @@
 <?php
+include_once '../domain/UserDomain.php';
+include_once '../config/Security.php';
+
+$s = new Security();
+$s->serverAuthenticate();
 
 class ManageEmail
 {

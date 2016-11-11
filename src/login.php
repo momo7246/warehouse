@@ -1,6 +1,9 @@
-<?php 
+<?php
+include_once '../domain/UserDomain.php';
+include_once '../config/Security.php';
 
-include('../domain/UserDomain.php');
+$s = new Security();
+$s->serverAuthenticate();
 
 $data = json_decode(file_get_contents("php://input"));
 $u = new Login($data);

@@ -49,6 +49,16 @@
 				</div>
 			</div>
 		</div>
+                
+                <div id="modal-delete-product" class="modal">
+                    <div class="modal-content">
+                            <h4 id="modal-title">Delete Confirmation:</h4>
+                            <p>Are you sure you want to <b>permanently delete</b> the selected element.</p>
+                            <div class='row'>
+                                <button class="waves-effect waves-light btn red" ng-click="vm.deleteProduct()" ng-disabled="vm.enableProgress">Delete</button>
+                            </div>
+                    </div>
+                </div>
 
 	</div>
 </div>

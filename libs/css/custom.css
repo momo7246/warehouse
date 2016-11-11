@@ -227,3 +227,9 @@ and open the template in the editor.
 .big-product-table th {
     border: 1px solid grey;
 }
+
+.delete-icon {
+    float: right;
+    position: relative;
+    bottom: 4px;
+}

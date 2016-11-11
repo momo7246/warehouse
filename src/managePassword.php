@@ -1,7 +1,11 @@
 <?php
-include('../domain/UserDomain.php');
-include('../model/User.php');
-include('manageEmail.php');
+include_once '../domain/UserDomain.php';
+include_once '../model/User.php';
+include_once 'manageEmail.php';
+include_once '../config/Security.php';
+
+$s = new Security();
+$s->authenticate();
 
 $m = new ManagePassword();
 $response = $m->process();

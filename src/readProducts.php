@@ -1,7 +1,11 @@
 <?php 
 
-include('../domain/ProductDomain.php');
-include('../model/Product.php');
+include_once '../domain/ProductDomain.php';
+include_once '../model/Product.php';
+include_once '../config/Security.php';
+
+$s = new Security();
+$s->authenticate();
 
 $p = new ReadProducts($_GET);
 $res = $p->process();

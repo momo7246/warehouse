@@ -24,7 +24,7 @@
 				{value: "ccn", description: "CCN#"},
 				{value: "description", description: "Description"},
 				{value: "part_ng", description: "Part Ng."},
-				{value: "location", description: "Location"},
+				{value: "location_id", description: "Location"},
 				{value: "year", description: "Year"}
 			    ];
 
@@ -47,6 +47,7 @@
 						p.ccn = parseInt(p.ccn);
 						p.uslp = parseFloat(p.uslp);
 						p.ndbp = parseFloat(p.ndbp);
+						p.year = parseInt(p.year);
 					});
 					vm.products = entities[1];
 					if (vm.products.length == 0) {
